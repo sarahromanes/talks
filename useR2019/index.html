@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>multiDA and genDA</title>
-    <meta charset="utf-8">
-    <meta name="author" content="  Sarah Romanes   <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt;&amp;nbsp;@sarah_romanes</span>" />
+    <meta charset="utf-8" />
+    <meta name="author" content="Sarah Romanes" />
     <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
     <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
@@ -14,23 +14,47 @@
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
 
-# multiDA and genDA
-## Discriminant Analysis Methods for Large Scale and Complex Datasets
-### <br><br>Sarah Romanes   <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt;&amp;nbsp;@sarah_romanes</span>
-### <br>12-Jul-2019<br><br><span>&lt;i class="fas  fa-link faa-vertical animated " style=" color:white;"&gt;&lt;/i&gt;&amp;nbsp;bit.ly/SR-useR-2019</span>
+
+
+
+
+
+class: split-40 hide-slide-number with-thick-border border-white
+background-image: url("bkg/bg1.png")
+background-size: cover
+
+.column[.content.vmiddle.center[
+
+
+
+]]
+.column.shade_main[.content.vmiddle[
+
+&lt;br&gt;
+
+# .large[multiDA and genDA]
+## Discriminant Analysis Methods for Large Scale 
+## and Complex Datasets
+
+&lt;br&gt;
+
+### Sarah Romanes  <span>&lt;i class="fab  fa-twitter faa-float animated " style=" color:white;"&gt;&lt;/i&gt;sarah_romanes</span> 
+
+&lt;br&gt;
+
+### useR!2019
+
+### <span>&lt;i class="fas  fa-link faa-vertical animated " style=" color:white;"&gt;&lt;/i&gt;&amp;nbsp;bit.ly/SR-useR-2019</span>
+
+
+]]
 
 ---
 
 
-
-
-
-
-
 class: split-70 hide-slide-number
-background-image: url("bkg/bg2.jpg")
+background-image: url("bkg/bg2.png")
 background-size: cover
 
 .column.slide-in-left[
@@ -47,7 +71,7 @@ class: split-two white
 
 &lt;br&gt;
 
-# What is Discriminant Analysis?
+# **What is Discriminant Analysis?**
 
 &lt;br&gt;
 
@@ -84,7 +108,7 @@ class: split-two white
 
 &lt;br&gt;
 
-# Issues with DA
+# **Issues with DA**
 
 &lt;br&gt;
 
@@ -96,7 +120,7 @@ class: split-two white
 
 &lt;br&gt;
 
-## .orange[Solution? **multiDA**]
+## .orange[**Solution?** *multiDA*]
 
 ]]
 .column.bg-main5[.content[
@@ -115,7 +139,7 @@ class: split-two white
 
 &lt;br&gt;
 
-## .orange[Solution? **genDA**]
+## .orange[**Solution?** *genDA*]
 ]]
 
 
@@ -124,7 +148,7 @@ class: split-two white
 
 
 class: split-70 hide-slide-number
-background-image: url("bkg/bg2.jpg")
+background-image: url("bkg/bg2.png")
 background-size: cover
 
 .column.slide-in-left[
@@ -140,7 +164,18 @@ class: split-two white
 
 &lt;br&gt;
 
-# SRBCT data
+# **SRBCT data**
+
+
+&lt;br&gt;
+
+### - The SRBCT dataset (Khan et al., 2001) looks at classifying 4 classes of different childhood tumours sharing similar visual features during routine histology.
+
+### - Data contains 83 microarray samples with 1586 features.
+
+&lt;br&gt;
+
+## .orange[**Q:** How can we use DA to find important features that discriminate between the classes, and use them to predict cancer type?]
 
 
 
@@ -161,21 +196,33 @@ class: split-two white
 
 class: middle center bg-main2
 
-# Pipeline
+
+&lt;img src="images/pipeline.png", width="80%"&gt;
 
 ---
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+&lt;br&gt;
+ # **What defines a discriminative feature?**
+ 
+  
+&lt;br&gt;
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
+ ]]
+  .row[.content.vmiddle.center[
 
-Suppose we have 3 classes to model. We could group them as 
+## .orange[**One group**] (NOT a discriminative feature)
 
-*One group*... (aka, NOT a discriminative feature)
+ ]]
 
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -189,14 +236,30 @@ Suppose we have 3 classes to model. We could group them as
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
 
-# So, what makes a discriminative feature?
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-**Two groups** group 1 against 2 and 3
+&lt;br&gt;
+ # **What defines a discriminative feature?**
+ 
+  
+&lt;br&gt;
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
+ ]]
+  .row[.content.vmiddle.center[
 
+## .orange[**Two groups**] (Groups 2 and 3, against 1)
+
+ ]]
+
+ ]
 ]]
+
+
 .column[.content.vmiddle.center[
 
 
@@ -210,15 +273,26 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+&lt;br&gt;
+ # **What defines a discriminative feature?**
+ 
+  
+&lt;br&gt;
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
-**Two groups** group 2 against 1 and 3
+ ]]
+  .row[.content.vmiddle.center[
 
+## .orange[**Two groups**] (Groups 1 and 3, against 2)
 
+ ]]
 
-
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -232,13 +306,26 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+&lt;br&gt;
+ # **What defines a discriminative feature?**
+ 
+  
+&lt;br&gt;
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
+ ]]
+  .row[.content.vmiddle.center[
 
-... and **Two groups** group 3 against 1 and 2
+## .orange[**Two groups**] (Groups 1 and 2, against 3)
 
+ ]]
+
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -253,13 +340,26 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+&lt;br&gt;
+ # **What defines a discriminative feature?**
+ 
+  
+&lt;br&gt;
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
-... and finally, **three groups** (all are different).
+ ]]
+  .row[.content.vmiddle.center[
 
+## .orange[**Three groups**] (All groups are different)
 
+ ]]
+
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -270,7 +370,7 @@ class: split-two white
 
 class: middle center white
 
-# .black[A Penalised LRT is used to determine best fit for each feature]
+# .black[A Penalised LRT is used to **estimate** the best fit for each feature]
 
 &lt;img src="images/LRT.png", width="100%"&gt;
 
@@ -299,7 +399,7 @@ class: split-two white
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `y` - vector of factor class values (for training)
 
 ]]
 
@@ -329,8 +429,7 @@ res &lt;- multiDA(y = y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
-
+### `X` - 	matrix containing the training data. The rows are the sample observations, and the columns are the features.
 ]]
 ---
 
@@ -357,7 +456,7 @@ res &lt;- multiDA(y = y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `penalty` - default `EBIC`,  which penalises based on the number of features and degrees of freedom of groupings. If option `penalty="BIC"` is specified, the penalty reverts back to the BIC.
 
 
 ]]
@@ -386,7 +485,7 @@ res &lt;- multiDA(y = y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `equal.var` - indicating whether group specific variances should be equal or allowed to vary.
 
 
 ]]
@@ -417,7 +516,7 @@ res &lt;- multiDA(y = y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `set.options` - this determines what groupings we want to consider. For example, for 15 classes, there are 1, 382, 958, 545 ways the classes can be grouped together. However if we consider `set.options = "onevsrest"`, we only consider groupings of one class vs the others, resulting in 16 possible combinations. 
 
 ]]
 
@@ -454,19 +553,22 @@ res &lt;- multiDA(y = y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-### A generic S3 `predict` method is used for prediction as follows
+### Finally, a generic S3 `predict` method is used for prediction.
 
 ]]
 
 ---
-class: middle center 
+class: middle center white
 
-# CV results
+# .black[100 Trial, 5 Fold CV]
+
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="864" /&gt;
+
 
 ---
 
 class: split-70 hide-slide-number
-background-image: url("bkg/bg2.jpg")
+background-image: url("bkg/bg2.png")
 background-size: cover
 
 .column.slide-in-left[
@@ -478,11 +580,23 @@ background-size: cover
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# Urban Cover data
+&lt;br&gt;
 
+# **Urban Cover data**
 
+&lt;br&gt;
+
+### - The study area is an urban area in Deerfield Beach, FL, USA, with a 30cm resolution colour infrared aerial orthoimagery of the study area acquired.
+
+&lt;br&gt;
+
+### - Contains 9 different types of landcover.
+
+&lt;br&gt; 
+
+### - Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc.
 
 ]]
 .column[.content.vmiddle.center[
@@ -497,9 +611,20 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# Urban Cover data
+
+&lt;br&gt;
+
+# **Urban Cover data**
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+# Data is *highly correlated* with a noticible difference in correlation structure between classes.
 
 
 
@@ -515,71 +640,129 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# GLLVM
+&lt;br&gt;
+
+# **Urban Cover data**
+
+&lt;br&gt;
+
+
+
+# EDA shows that data is .orange[not normal], with a mix of positive skew and count data.
+
+
+&lt;br&gt;
+
+## .orange[**Q:** How can we build a DA model to discriminate between segment types, for data of mixed response types?]
+
 
 
 
 ]]
-.column[.content[
+.column[.content.vmiddle[
 
 
 ```r
 # A tibble: 168 x 148
-   class    BrdIndx  Area Round Bright Compact ShpIndx Mean_G
-   &lt;fct&gt;      &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  
- 1 car         1.27    91  0.97   231.    1.39    1.47   208.  
- 2 concrete    2.36   241  1.56   216.    2.46    2.51   188.  
- 3 concrete    2.12   266  1.47   232.    2.07    2.21   207. 
- 4 concrete    2.42   399  1.28   230.    2.49    2.73   205. 
- 5 concrete    2.15   944  1.73   193.    2.28    4.1    166. 
- 6 tree        3.11   169  1.47   172.    2.49    3.35   240.  
- 7 car         1.2     44  0.79   209.    1.14    1.36   181. 
- 8 car         1       88  0.22   235.    1.11    1.12   208. 
- 9 building    1.59  1737  0.67   220.    1.3     1.64   186. 
-10 tree        2.37   153  1.3    120.    2.85    2.59   184.
-
-
-#"log-normal"        "negative-binomial" "log-normal"        "log-normal"        "log-normal"        "log-normal"        "log-normal"    
+   class    BrdIndx  Area Round Bright Compact ShpIndx 
+   &lt;fct&gt;      &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  
+ 1 car         1.27    91  0.97   231.    1.39    1.47
+ 2 concrete    2.36   241  1.56   216.    2.46    2.51    
+ 3 concrete    2.12   266  1.47   232.    2.07    2.21
+ 4 concrete    2.42   399  1.28   230.    2.49    2.73 
+ 5 concrete    2.15   944  1.73   193.    2.28    4.1 
+ 6 tree        3.11   169  1.47   172.    2.49    3.35  
+ 7 car         1.2     44  0.79   209.    1.14    1.36 
+ 8 car         1       88  0.22   235.    1.11    1.12 
+ 9 building    1.59  1737  0.67   220.    1.3     1.64 
+10 tree        2.37   153  1.3    120.    2.85    2.59
 ```
 
 
+
+
+
+
 ]]
+
 
 
 ---
 
-class: split-33 with-thick-border
 
-.column.bg-main2[.content.vmiddle.center[
+class: split-33 
 
-# GLLVM matrix
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+## We can fit a DA model to this data as follows. By first deciding on a family of distributions for each column, 
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
- &lt;img src="images/class-1.png", width="80%"&gt;
+ &lt;img src="images/GLLVM-1.png", width="80%"&gt;
 
 
 
 ]]
 
 ---
-class: split-33 with-thick-border
+class: split-33 
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# GLLVM matrix
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+## we use a .orange[GLLVM] to model the distribution for each column, taking into account class information and capturing the correlation between features.
+
+
+
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
- &lt;img src="images/class-2.png", width="80%"&gt;
+ &lt;img src="images/GLLVM-2.png", width="80%"&gt;
+
+
+
+]]
+
+---
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+# `\(\Large{\tau_i}\)` and `\(\Large{\beta_{0j}}\)`  represent row and column intercepts.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/GLLVM-3.png", width="80%"&gt;
 
 
 
@@ -587,18 +770,132 @@ class: split-33 with-thick-border
 
 ---
 
-class: split-33 with-thick-border
+class: split-33 
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# GLLVM matrix
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+# Class information is captured in `\(\Large{\boldsymbol{x_i}}\)`, with corresponding coefficients `\(\Large{\boldsymbol{\beta_j}}\)`.
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
- &lt;img src="images/class-3.png", width="80%"&gt;
+ &lt;img src="images/GLLVM-4.png", width="80%"&gt;
+
+
+
+]]
+
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+# Correlation structure is captured in `\(\Large{\boldsymbol{u_i}}\)` (latent), with corresponding coefficients `\(\Large{\boldsymbol{\lambda_j}}\)`.
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/GLLVM-5.png", width="80%"&gt;
+
+
+
+]]
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/GLLVM-6.png", width="80%"&gt;
+
+
+
+]]
+
+---
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/GLLVM-7.png", width="80%"&gt;
+
+
+
+]]
+
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs **
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/GLLVM-8.png", width="80%"&gt;
 
 
 
@@ -608,17 +905,30 @@ class: split-33 with-thick-border
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# TMB package
+&lt;br&gt;
+
+# **Model Estimation**
+
+&lt;br&gt;
+
+### - We formulate a Bayesian GLLVM approach to train our classifier.
+
+&lt;br&gt;
+### - Marginalising over the latent variables proves to be intractable - so a Variational Approximation is used.
+&lt;br&gt;
+### - In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[Automatic Differentiation], implemented in `C++`. This allows our fitting process to be fast.
+
+#### Read more about the mathematics [here](https://sarahromanes.github.io/talks/ACEMS/ACEMS_SarahRomanes.pdf).
 
 
 
 ]]
-.column[.content[
+.column[.content.vmiddle.center[
 
 
-
+ &lt;img src="images/AutomaticDifferentiationNutshell.png", width="85%"&gt;
 
 ]]
 
@@ -649,7 +959,7 @@ class: split-two white
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `Y` - 	a (n x m) `matrix` or `data.frame` of responses.
 
 
 ]]
@@ -682,7 +992,7 @@ res &lt;- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `class` - a factor vector of class information.
 
 ]]
 
@@ -713,7 +1023,7 @@ res &lt;- genDA(Y = Y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `num.lv` - number of latent variables in GLLVM model. Non-negative integer, less than the number of response variables (m). Defaults to 2.
 
 
 ]]
@@ -746,7 +1056,7 @@ res &lt;- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `family` - character vector to describe the distribution of each column. Columns can be of different family types. Family options are `"poisson"` (with log link), `"ZIP"` (Zero Inflated Poisson), `"negative-binomial"` (with log link), `"binomial"` (with logit link), `"gaussian"`, and `"log-normal"`.
 
 ]]
 
@@ -777,8 +1087,7 @@ res &lt;- genDA(Y = Y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
-
+### `common.covariance` - default `TRUE`. Specifies whether different covariance structures should be fit for each class.
 
 ]]
 
@@ -808,7 +1117,7 @@ res &lt;- genDA(Y = Y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `row.eff` - default `FALSE`. Specifies whether row effects should be included in model.
 
 
 ]]
@@ -841,7 +1150,7 @@ res &lt;- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `standard.errors` - default `FALSE`. Indicates whether standard errors for training parameter estimates are calculated.
 
 ]]
 
@@ -881,7 +1190,7 @@ res &lt;- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-### A generic S3 `predict` method is used for prediction as follows
+### And finally, just as in `multiDA`, a generic S3 `predict` method is used for prediction.
 
 ]]
 
@@ -891,7 +1200,7 @@ class: middle center white
 
 # .black[100 Trial, 5 Fold CV]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" width="864" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="864" /&gt;
 
 
 
@@ -911,6 +1220,9 @@ class: split-three white
 
 ### <i class="fab  fa-twitter "></i> : sarah_romanes
 ### <i class="fas  fa-globe "></i> : sarahromanes.github.io
+
+
+
 
 ]]
 
@@ -947,6 +1259,7 @@ class: split-three white
 
 ]]
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "16:9",
@@ -957,16 +1270,57 @@ class: split-three white
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -980,14 +1334,15 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

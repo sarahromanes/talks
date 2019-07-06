@@ -1,13 +1,13 @@
 ---
 title: "multiDA and genDA"
 subtitle: "Discriminant Analysis Methods for Large Scale and Complex Datasets"
-author: "<br><br>Sarah Romanes&nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext='&nbsp;@sarah_romanes')`"
-date: "<br>12-Jul-2019<br><br>`r anicon::faa('link', animate='vertical', rtext='&nbsp;bit.ly/SR-useR-2019', color='white')`"
+author: "Sarah Romanes"
+date: "usrR"
 output:
   xaringan::moon_reader:
     lib_dir: libs
     css: ["assets/kunoichi.css", "assets/ninjutsu.css", "assets/custom.css", "assets/ninpo.css"]
-    seal: true
+    seal: false
     self_contained: false
     nature:
       ratio: "16:9"
@@ -33,9 +33,41 @@ livedemosign <- function(top, left, deg) {
 ```
 
 
+class: split-40 hide-slide-number with-thick-border border-white
+background-image: url("bkg/bg1.png")
+background-size: cover
+
+.column[.content.vmiddle.center[
+
+
+
+]]
+.column.shade_main[.content.vmiddle[
+
+<br>
+
+# .large[multiDA and genDA]
+## Discriminant Analysis Methods for Large Scale 
+## and Complex Datasets
+
+<br>
+
+### Sarah Romanes  `r anicon::faa('twitter', animate = 'float', rtext='sarah_romanes', color='white')` 
+
+<br>
+
+### useR!2019
+
+### `r anicon::faa('link', animate='vertical', rtext='&nbsp;bit.ly/SR-useR-2019', color='white')`
+
+
+]]
+
+---
+
 
 class: split-70 hide-slide-number
-background-image: url("bkg/bg2.jpg")
+background-image: url("bkg/bg2.png")
 background-size: cover
 
 .column.slide-in-left[
@@ -52,7 +84,7 @@ class: split-two white
 
 <br>
 
-# What is Discriminant Analysis?
+# **What is Discriminant Analysis?**
 
 <br>
 
@@ -119,7 +151,7 @@ class: split-two white
 
 <br>
 
-# Issues with DA
+# **Issues with DA**
 
 <br>
 
@@ -131,7 +163,7 @@ class: split-two white
 
 <br>
 
-## .orange[Solution? **multiDA**]
+## .orange[**Solution?** *multiDA*]
 
 ]]
 .column.bg-main5[.content[
@@ -150,7 +182,7 @@ class: split-two white
 
 <br>
 
-## .orange[Solution? **genDA**]
+## .orange[**Solution?** *genDA*]
 ]]
 
 
@@ -159,7 +191,7 @@ class: split-two white
 
 
 class: split-70 hide-slide-number
-background-image: url("bkg/bg2.jpg")
+background-image: url("bkg/bg2.png")
 background-size: cover
 
 .column.slide-in-left[
@@ -175,7 +207,18 @@ class: split-two white
 
 <br>
 
-# SRBCT data
+# **SRBCT data**
+
+
+<br>
+
+### - The SRBCT dataset (Khan et al., 2001) looks at classifying 4 classes of different childhood tumours sharing similar visual features during routine histology.
+
+### - Data contains 83 microarray samples with 1586 features.
+
+<br>
+
+## .orange[**Q:** How can we use DA to find important features that discriminate between the classes, and use them to predict cancer type?]
 
 
 
@@ -196,21 +239,33 @@ class: split-two white
 
 class: middle center bg-main2
 
-# Pipeline
+
+<img src="images/pipeline.png", width="80%">
 
 ---
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+<br>
+ # **What defines a discriminative feature?**
+ 
+  
+<br>
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
+ ]]
+  .row[.content.vmiddle.center[
 
-Suppose we have 3 classes to model. We could group them as 
+## .orange[**One group**] (NOT a discriminative feature)
 
-*One group*... (aka, NOT a discriminative feature)
+ ]]
 
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -253,14 +308,30 @@ p5
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
 
-# So, what makes a discriminative feature?
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-**Two groups** group 1 against 2 and 3
+<br>
+ # **What defines a discriminative feature?**
+ 
+  
+<br>
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
+ ]]
+  .row[.content.vmiddle.center[
 
+## .orange[**Two groups**] (Groups 2 and 3, against 1)
+
+ ]]
+
+ ]
 ]]
+
+
 .column[.content.vmiddle.center[
 
 
@@ -303,15 +374,26 @@ p3
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+<br>
+ # **What defines a discriminative feature?**
+ 
+  
+<br>
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
-**Two groups** group 2 against 1 and 3
+ ]]
+  .row[.content.vmiddle.center[
 
+## .orange[**Two groups**] (Groups 1 and 3, against 2)
 
+ ]]
 
-
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -354,13 +436,26 @@ p3
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+<br>
+ # **What defines a discriminative feature?**
+ 
+  
+<br>
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
+ ]]
+  .row[.content.vmiddle.center[
 
-... and **Two groups** group 3 against 1 and 2
+## .orange[**Two groups**] (Groups 1 and 2, against 3)
 
+ ]]
+
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -404,13 +499,26 @@ p3
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
+  .split-two[
+ .row[.content[
 
-# So, what makes a discriminative feature?
+<br>
+ # **What defines a discriminative feature?**
+ 
+  
+<br>
+        
+ ## Suppose we have 3 classes to model. We could group them as:
 
-... and finally, **three groups** (all are different).
+ ]]
+  .row[.content.vmiddle.center[
 
+## .orange[**Three groups**] (All groups are different)
 
+ ]]
+
+ ]
 ]]
 .column[.content.vmiddle.center[
 
@@ -455,7 +563,7 @@ p1
 
 class: middle center white
 
-# .black[A Penalised LRT is used to determine best fit for each feature]
+# .black[A Penalised LRT is used to **estimate** the best fit for each feature]
 
 <img src="images/LRT.png", width="100%">
 
@@ -483,7 +591,7 @@ res <- multiDA(y = y, #<<
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `y` - vector of factor class values (for training)
 
 ]]
 
@@ -512,8 +620,7 @@ res <- multiDA(y = y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
-
+### `X` - 	matrix containing the training data. The rows are the sample observations, and the columns are the features.
 ]]
 ---
 
@@ -539,7 +646,7 @@ res <- multiDA(y = y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `penalty` - default `EBIC`,  which penalises based on the number of features and degrees of freedom of groupings. If option `penalty="BIC"` is specified, the penalty reverts back to the BIC.
 
 
 ]]
@@ -567,7 +674,7 @@ res <- multiDA(y = y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `equal.var` - indicating whether group specific variances should be equal or allowed to vary.
 
 
 ]]
@@ -597,7 +704,7 @@ res <- multiDA(y = y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `set.options` - this determines what groupings we want to consider. For example, for 15 classes, there are 1, 382, 958, 545 ways the classes can be grouped together. However if we consider `set.options = "onevsrest"`, we only consider groupings of one class vs the others, resulting in 16 possible combinations. 
 
 ]]
 
@@ -632,19 +739,39 @@ predict(res, newdata = newdata) #<<
 .column.bg-main5[.content.vmiddle.center[
 
 
-### A generic S3 `predict` method is used for prediction as follows
+### Finally, a generic S3 `predict` method is used for prediction.
 
 ]]
 
 ---
-class: middle center 
+class: middle center white
 
-# CV results
+# .black[100 Trial, 5 Fold CV]
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE, fig.retina=4, fig.width=12}
+
+
+load("data/SRBCT.RData")
+data$as.factor.ours.=as.factor(data$as.factor.ours.)
+library(ggthemes)
+library(ochRe)
+p10 <- ggplot(data, aes(x = labels, y = 1-vals, fill=as.factor.ours.)) +
+              geom_boxplot() +
+              scale_fill_manual(values = c("thistle4","thistle3"))+
+              theme_hc() +
+              theme(legend.position="none",
+                    text = element_text(size=18)) +ylab("Accuracy (%)") + xlab(" ") 
+    
+
+p10
+
+```
+
 
 ---
 
 class: split-70 hide-slide-number
-background-image: url("bkg/bg2.jpg")
+background-image: url("bkg/bg2.png")
 background-size: cover
 
 .column.slide-in-left[
@@ -656,11 +783,23 @@ background-size: cover
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# Urban Cover data
+<br>
 
+# **Urban Cover data**
 
+<br>
+
+### - The study area is an urban area in Deerfield Beach, FL, USA, with a 30cm resolution colour infrared aerial orthoimagery of the study area acquired.
+
+<br>
+
+### - Contains 9 different types of landcover.
+
+<br> 
+
+### - Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc.
 
 ]]
 .column[.content.vmiddle.center[
@@ -675,9 +814,20 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# Urban Cover data
+
+<br>
+
+# **Urban Cover data**
+
+<br>
+
+<br>
+
+<br>
+
+# Data is *highly correlated* with a noticible difference in correlation structure between classes.
 
 
 
@@ -693,70 +843,128 @@ class: split-two white
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# GLLVM
+<br>
+
+# **Urban Cover data**
+
+<br>
+
+
+
+# EDA shows that data is .orange[not normal], with a mix of positive skew and count data.
+
+
+<br>
+
+## .orange[**Q:** How can we build a DA model to discriminate between segment types, for data of mixed response types?]
+
 
 
 
 ]]
-.column[.content[
+.column[.content.vmiddle[
 
 ```{r, eval = FALSE}
 # A tibble: 168 x 148
-   class    BrdIndx  Area Round Bright Compact ShpIndx Mean_G
-   <fct>      <dbl> <int> <dbl>  <dbl>   <dbl>   <dbl>  <dbl>  
- 1 car         1.27    91  0.97   231.    1.39    1.47   208.  
- 2 concrete    2.36   241  1.56   216.    2.46    2.51   188.  
- 3 concrete    2.12   266  1.47   232.    2.07    2.21   207. 
- 4 concrete    2.42   399  1.28   230.    2.49    2.73   205. 
- 5 concrete    2.15   944  1.73   193.    2.28    4.1    166. 
- 6 tree        3.11   169  1.47   172.    2.49    3.35   240.  
- 7 car         1.2     44  0.79   209.    1.14    1.36   181. 
- 8 car         1       88  0.22   235.    1.11    1.12   208. 
- 9 building    1.59  1737  0.67   220.    1.3     1.64   186. 
-10 tree        2.37   153  1.3    120.    2.85    2.59   184.
-
-
-#"log-normal"        "negative-binomial" "log-normal"        "log-normal"        "log-normal"        "log-normal"        "log-normal"    
+   class    BrdIndx  Area Round Bright Compact ShpIndx 
+   <fct>      <dbl> <int> <dbl>  <dbl>   <dbl>   <dbl>  
+ 1 car         1.27    91  0.97   231.    1.39    1.47
+ 2 concrete    2.36   241  1.56   216.    2.46    2.51    
+ 3 concrete    2.12   266  1.47   232.    2.07    2.21
+ 4 concrete    2.42   399  1.28   230.    2.49    2.73 
+ 5 concrete    2.15   944  1.73   193.    2.28    4.1 
+ 6 tree        3.11   169  1.47   172.    2.49    3.35  
+ 7 car         1.2     44  0.79   209.    1.14    1.36 
+ 8 car         1       88  0.22   235.    1.11    1.12 
+ 9 building    1.59  1737  0.67   220.    1.3     1.64 
+10 tree        2.37   153  1.3    120.    2.85    2.59
 ```
 
 
+
+
+
+
 ]]
+
 
 
 ---
 
-class: split-33 with-thick-border
 
-.column.bg-main2[.content.vmiddle.center[
+class: split-33 
 
-# GLLVM matrix
+.column.bg-main2[.content[
+
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+## We can fit a DA model to this data as follows. By first deciding on a family of distributions for each column, 
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
- <img src="images/class-1.png", width="80%">
+ <img src="images/GLLVM-1.png", width="80%">
 
 
 
 ]]
 
 ---
-class: split-33 with-thick-border
+class: split-33 
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# GLLVM matrix
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+## we use a .orange[GLLVM] to model the distribution for each column, taking into account class information and capturing the correlation between features.
+
+
+
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
- <img src="images/class-2.png", width="80%">
+ <img src="images/GLLVM-2.png", width="80%">
+
+
+
+]]
+
+---
+class: split-33 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+<br>
+
+# $\Large{\tau_i}$ and $\Large{\beta_{0j}}$  represent row and column intercepts.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ <img src="images/GLLVM-3.png", width="80%">
 
 
 
@@ -764,18 +972,132 @@ class: split-33 with-thick-border
 
 ---
 
-class: split-33 with-thick-border
+class: split-33 
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# GLLVM matrix
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+<br>
+
+# Class information is captured in $\Large{\boldsymbol{x_i}}$, with corresponding coefficients $\Large{\boldsymbol{\beta_j}}$.
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
- <img src="images/class-3.png", width="80%">
+ <img src="images/GLLVM-4.png", width="80%">
+
+
+
+]]
+
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+# Correlation structure is captured in $\Large{\boldsymbol{u_i}}$ (latent), with corresponding coefficients $\Large{\boldsymbol{\lambda_j}}$.
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ <img src="images/GLLVM-5.png", width="80%">
+
+
+
+]]
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+<br>
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ <img src="images/GLLVM-6.png", width="80%">
+
+
+
+]]
+
+---
+class: split-33 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+<br>
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ <img src="images/GLLVM-7.png", width="80%">
+
+
+
+]]
+
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** GLLVMs **
+
+<br>
+
+<br>
+
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ <img src="images/GLLVM-8.png", width="80%">
 
 
 
@@ -785,17 +1107,30 @@ class: split-33 with-thick-border
 
 class: split-two white
 
-.column.bg-main2[.content.vmiddle.center[
+.column.bg-main2[.content[
 
-# TMB package
+<br>
+
+# **Model Estimation**
+
+<br>
+
+### - We formulate a Bayesian GLLVM approach to train our classifier.
+
+<br>
+### - Marginalising over the latent variables proves to be intractable - so a Variational Approximation is used.
+<br>
+### - In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[Automatic Differentiation], implemented in `C++`. This allows our fitting process to be fast.
+
+#### Read more about the mathematics [here](https://sarahromanes.github.io/talks/ACEMS/ACEMS_SarahRomanes.pdf).
 
 
 
 ]]
-.column[.content[
+.column[.content.vmiddle.center[
 
 
-
+ <img src="images/AutomaticDifferentiationNutshell.png", width="85%">
 
 ]]
 
@@ -825,7 +1160,7 @@ res <- genDA(Y = Y, #<<
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `Y` - 	a (n x m) `matrix` or `data.frame` of responses.
 
 
 ]]
@@ -857,7 +1192,7 @@ res <- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `class` - a factor vector of class information.
 
 ]]
 
@@ -887,7 +1222,7 @@ res <- genDA(Y = Y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `num.lv` - number of latent variables in GLLVM model. Non-negative integer, less than the number of response variables (m). Defaults to 2.
 
 
 ]]
@@ -919,7 +1254,7 @@ res <- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `family` - character vector to describe the distribution of each column. Columns can be of different family types. Family options are `"poisson"` (with log link), `"ZIP"` (Zero Inflated Poisson), `"negative-binomial"` (with log link), `"binomial"` (with logit link), `"gaussian"`, and `"log-normal"`.
 
 ]]
 
@@ -949,8 +1284,7 @@ res <- genDA(Y = Y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
-
+### `common.covariance` - default `TRUE`. Specifies whether different covariance structures should be fit for each class.
 
 ]]
 
@@ -979,7 +1313,7 @@ res <- genDA(Y = Y,
 ]]
 .column.bg-main5[.content.vmiddle.center[
 
-
+### `row.eff` - default `FALSE`. Specifies whether row effects should be included in model.
 
 
 ]]
@@ -1011,7 +1345,7 @@ res <- genDA(Y = Y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-
+### `standard.errors` - default `FALSE`. Indicates whether standard errors for training parameter estimates are calculated.
 
 ]]
 
@@ -1049,7 +1383,7 @@ predict(res, newdata = newdata) #<<
 .column.bg-main5[.content.vmiddle.center[
 
 
-### A generic S3 `predict` method is used for prediction as follows
+### And finally, just as in `multiDA`, a generic S3 `predict` method is used for prediction.
 
 ]]
 
@@ -1088,6 +1422,9 @@ class: split-three white
 
 ### `r icon::fa("twitter")` : sarah_romanes
 ### `r icon::fa("globe")` : sarahromanes.github.io
+
+
+
 
 ]]
 
