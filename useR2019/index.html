@@ -52,6 +52,42 @@ background-size: cover
 
 ---
 
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# Acknowledgements
+
+
+&lt;br&gt;
+&lt;br&gt;
+
+### - This work is in collaboration with my supervisor A/Prof John Ormerod.
+
+&lt;br&gt;
+
+### - Big thanks to my research group at the University of Sydney, as well as NUMBATS from Monash for input in package design.
+
+&lt;br&gt;
+
+### - Slides are made in `rmarkdown` using `xaringan` (Yihui Xie) and *ninja* theme (Emi Tanaka).
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/group.jpg", width="70%"&gt;
+
+
+
+]]
+
+
+---
+
 
 class: split-70 hide-slide-number
 background-image: url("bkg/bg2.png")
@@ -212,8 +248,9 @@ class: split-two white
  
   
 &lt;br&gt;
+
         
- ## Suppose we have 3 classes to model. We could group them as:
+## Suppose we have 3 classes to model. If we assume the features are independent,  within each feature we can group them as:
 
  ]]
   .row[.content.vmiddle.center[
@@ -246,8 +283,9 @@ class: split-two white
  
   
 &lt;br&gt;
-        
- ## Suppose we have 3 classes to model. We could group them as:
+
+## Suppose we have 3 classes to model. If we assume the features are independent,  within each feature we can group them as:
+
 
  ]]
   .row[.content.vmiddle.center[
@@ -283,7 +321,8 @@ class: split-two white
   
 &lt;br&gt;
         
- ## Suppose we have 3 classes to model. We could group them as:
+## Suppose we have 3 classes to model. If we assume the features are independent,  within each feature we can group them as:
+
 
  ]]
   .row[.content.vmiddle.center[
@@ -315,8 +354,9 @@ class: split-two white
  
   
 &lt;br&gt;
-        
- ## Suppose we have 3 classes to model. We could group them as:
+
+## Suppose we have 3 classes to model. If we assume the features are independent,  within each feature we can group them as:
+
 
  ]]
   .row[.content.vmiddle.center[
@@ -349,8 +389,8 @@ class: split-two white
  
   
 &lt;br&gt;
-        
- ## Suppose we have 3 classes to model. We could group them as:
+
+## Suppose we have 3 classes to model. If we assume the features are independent,  within each feature we can group them as:
 
  ]]
   .row[.content.vmiddle.center[
@@ -545,7 +585,7 @@ res &lt;- multiDA(y = y,
 
 
 ```r
-*predict(res, newdata = newdata)
+*obj &lt;- predict(res, newdata = newdata)
 ```
 
 
@@ -553,16 +593,119 @@ res &lt;- multiDA(y = y,
 .column.bg-main5[.content.vmiddle.center[
 
 
-### Finally, a generic S3 `predict` method is used for prediction.
+### Finally, a generic S3 `predict` method is used for prediction. `obj$y.pred` returns class labels, and `obj$probabilities` returns probablities of class membership for each class.
 
 ]]
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# Application to `SRBCT` data
+
+&lt;br&gt;
+
+
+```r
+res &lt;- multiDA(y = SRBCT$y, 
+               X = SRBCT$X,
+               penalty = "EBIC",
+               equal.var = TRUE,
+               set.options = "exhaustive") 
+```
+
+&lt;br&gt;
+
+### We first have a look at a summary of the model by using `print()`:
+
+
+```r
+*print(res)
+```
+
+
+]]
+.column[.content.vmiddle[
+
+
+```r
+Sample Size:
+[1] 63
+Number of Features:
+[1] 1586
+Classes:
+[1] 4
+Equal Variance Assumption:
+[1] TRUE
+Number of Significant Features:
+[1] 215
+Summary of Significant Features:
+  rank feature.ID gamma.hat partition
+1     1      V1172 0.9997741         8
+2     2      V1232 0.9997576         4
+3     3      V1233 0.9997563         3
+4     4      V1324 0.9997506         3
+5     5       V706 0.9997441         5
+6     6       V434 0.9997437         3
+7     7       V527 0.9997424         3
+8     8      V1189 0.9997368         3
+9     9      V1166 0.9997347         7
+10   10       V148 0.9997342         4
+```
+
+
+]]
+
+
+---
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# Application to `SRBCT` data
+
+&lt;br&gt;
+
+
+```r
+res &lt;- multiDA(y = SRBCT$y, 
+               X = SRBCT$X,
+               penalty = "EBIC",
+               equal.var = TRUE,
+               set.options = "exhaustive") 
+```
+
+&lt;br&gt;
+
+### We can then examine the class groupings using the `plot()` method for `multiDA`:
+
+
+```r
+*plot(res, ranks= 1)
+```
+
+
+]]
+.column[.content.vmiddle.center[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="504" /&gt;
+
+
+]]
+
 
 ---
 class: middle center white
 
 # .black[100 Trial, 5 Fold CV]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="864" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="864" /&gt;
 
 
 ---
@@ -596,13 +739,14 @@ class: split-two white
 
 &lt;br&gt; 
 
-### - Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc.
+### - Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc measured at different resolutions.
 
 ]]
 .column[.content.vmiddle.center[
 
 &lt;img src="images/urban.jpg", width="80%"&gt;
 
+##### .pink[Source: Johnson, 2013].
 
 ]]
 
@@ -1200,7 +1344,7 @@ class: middle center white
 
 # .black[100 Trial, 5 Fold CV]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="864" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" width="864" /&gt;
 
 
 
