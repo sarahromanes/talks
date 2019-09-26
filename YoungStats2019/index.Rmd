@@ -59,7 +59,7 @@ background-size: cover
 
 ### Young Stats Conference, 2019
 
-### `r anicon::faa('link', animate='vertical', rtext='&nbsp;bit.ly/SR-YSC-2019', color='white')`
+### `r anicon::faa('link', animate='vertical', rtext='&nbsp;bit.ly/SR-YoungStats', color='white')`
 
 
 ]]
