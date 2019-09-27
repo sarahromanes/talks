@@ -246,6 +246,21 @@ $$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  \c
 
 ---
 
+class: center bg-main2
+
+# Generalised Linear Latent Variable Models
+
+<br>
+
+.larger[
+$$p(y_{ij}| \boldsymbol{u}_i, \boldsymbol{\Psi}) = \left\{ \frac{y_{ij} \eta_{ij} - b(\theta_{ij}) }{\phi_j} + c(y_{ij}, \phi_j)  \right\}.$$
+]
+
+
+
+
+---
+
 class: split-33 
 
 .column.bg-main2[.content[
@@ -629,22 +644,7 @@ ggplot(results, aes(x=method, y=(1-value)*100 )) +
 
 
 ---
-class: split-three white
-
-
-.column.bg-main3[.content.center[
-
-<br>
-
-<br>
-
-<br>
-
-<img src="images/profile.png", width="65%">
-
-### `r icon::fa("twitter")` : sarah_romanes
-### `r icon::fa("globe")` : sarahromanes.github.io
-
+class: split-two white
 
 
 
@@ -671,7 +671,9 @@ class: split-three white
 
 <br>
 
-# .black[multiDA]
+## Thank you!
+
+<img src="images/SSA_logo.png", width="50%">
 
 ### - Slides are made in `rmarkdown` using `xaringan` (Yihui Xie) and *ninja* theme (Emi Tanaka).
 
