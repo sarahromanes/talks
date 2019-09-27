@@ -44,7 +44,9 @@
   }
 }
 
+.larger { font-size: 200% }
 .large { font-size: 130% }
+.medium { font-size: 115%}
 .small { font-size: 70% }
 
 

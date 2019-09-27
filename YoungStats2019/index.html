@@ -176,113 +176,18 @@ background-size: cover
 .column[
 ]
 
-
-
 ---
 
+class: center bg-main2
 
-class: split-33 
-
-.column.bg-main2[.content[
-
-&lt;br&gt;
-
-# ** GLLVMs **
+# Generalised Linear Latent Variable Models
 
 &lt;br&gt;
 
-## We can fit a DA model to this data as follows. By first deciding on a family of distributions for each column, 
+.larger[
+`$$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  \color{orange}{ + \boldsymbol{u}_i^T\boldsymbol{\lambda}_j }$$`
+]
 
-
-]]
-.column[.content.vmiddle.center[
-
-
- &lt;img src="images/GLLVM-1.png", width="80%"&gt;
-
-
-
-]]
-
----
-class: split-33 
-
-.column.bg-main2[.content[
-
-&lt;br&gt;
-
-# ** GLLVMs **
-
-&lt;br&gt;
-
-## we use a .orange[GLLVM] to model the distribution for each column, taking into account class information and capturing the correlation between features.
-
-
-
-
-
-]]
-.column[.content.vmiddle.center[
-
-
- &lt;img src="images/GLLVM-2.png", width="80%"&gt;
-
-
-
-]]
-
----
-class: split-33 
-
-.column.bg-main2[.content[
-
-&lt;br&gt;
-
-# ** GLLVMs **
-
-&lt;br&gt;
-
-&lt;br&gt;
-
-# `\(\Large{\tau_i}\)` and `\(\Large{\beta_{0j}}\)`  represent row and column intercepts.
-
-
-]]
-.column[.content.vmiddle.center[
-
-
- &lt;img src="images/GLLVM-3.png", width="80%"&gt;
-
-
-
-]]
-
----
-
-class: split-33 
-
-.column.bg-main2[.content[
-
-&lt;br&gt;
-
-# ** GLLVMs **
-
-&lt;br&gt;
-
-&lt;br&gt;
-
-# Class information is captured in `\(\Large{\boldsymbol{x_i}}\)`, with corresponding coefficients `\(\Large{\boldsymbol{\beta_j}}\)`.
-
-
-]]
-.column[.content.vmiddle.center[
-
-
- &lt;img src="images/GLLVM-4.png", width="80%"&gt;
-
-
-
-]]
 
 ---
 
@@ -304,7 +209,7 @@ class: split-33
 .column[.content.vmiddle.center[
 
 
- &lt;img src="images/GLLVM-5.png", width="80%"&gt;
+ &lt;img src="images/genDA_common.png", width="100%"&gt;
 
 
 
@@ -330,37 +235,12 @@ class: split-33
 .column[.content.vmiddle.center[
 
 
- &lt;img src="images/GLLVM-6.png", width="80%"&gt;
+ &lt;img src="images/genDA_separate.png", width="100%"&gt;
 
 
 
 ]]
 
----
-class: split-33 
-
-.column.bg-main2[.content[
-
-&lt;br&gt;
-
-# ** GLLVMs **
-
-&lt;br&gt;
-
-&lt;br&gt;
-
-## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
-
-
-]]
-.column[.content.vmiddle.center[
-
-
- &lt;img src="images/GLLVM-7.png", width="80%"&gt;
-
-
-
-]]
 
 ---
 
@@ -377,14 +257,14 @@ class: split-two
 &lt;br&gt;
 
 
-## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+## However, the integral needed to obtain the marginal likelihood proves to be intractable.
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
-.large[.black[
+.medium[.black[
 
 `$$\begin{align}
       \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\boldsymbol{y}_i, \boldsymbol{\Psi}) \right\} \\
@@ -396,9 +276,15 @@ class: split-two
 
 ]]
 ---
-class middle center
+class: center bg-main2
 
-.black[VB to da rescue]
+&lt;br&gt;
+
+# Variational Approximations to the rescue!
+
+&lt;br&gt;
+
+&lt;img src="images/superman.gif", width="50%"&gt;
 ---
 
 class: middle center hide-slide-number
@@ -419,20 +305,25 @@ class: split-two
 &lt;br&gt;
 
 
-## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
 
 
 ]]
 .column[.content.vmiddle.center[
 
 
-.large[.black[
+.medium[.black[
 
 `$$\begin{align}
       \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} - E_q\{b(\theta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
-                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i )
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
    \end{align}$$`
 ]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j.$$`  ]]
 
 
 ]]
@@ -449,7 +340,7 @@ class: split-two white
 
 &lt;br&gt;
 
-### <i class="fas  fa-angle-right "></i> In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[Automatic Differentiation], implemented in `C++`
+### <i class="fas  fa-angle-right "></i> In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[automatic differentiation], implemented in `C++`
 
 
 
@@ -472,7 +363,7 @@ class: split-two white
 
 &lt;br&gt;
 
-### <i class="fas  fa-angle-right "></i> In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[Automatic differentiation], implemented in `C++`. 
+### <i class="fas  fa-angle-right "></i> In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[automatic differentiation], implemented in `C++`. 
 
 &lt;br&gt;
 
@@ -552,7 +443,7 @@ class: split-two white
 
 &lt;br&gt;
 
-# Data is *highly correlated* with a noticible difference in correlation structure between classes.
+# Data is .orange[*highly correlated*] with a noticible difference in correlation structure between classes.
 
 
 
@@ -583,7 +474,7 @@ class: split-two white
 
 &lt;br&gt;
 
-# Let's give genDA a go on this data!
+# .orange[Let's give genDA a go on this data!]
 
 
 
@@ -615,16 +506,53 @@ class: split-two white
 
 ]]
 
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Urban Cover data** <i class="fab  fa-r-project "></i>
+
+
+
+&lt;br&gt;
+
+
+```r
+*fit &lt;-  genDA(y = data, class = class,
+*             num.lv = 2, common.covariance = FALSE)
+
+prediction &lt;- predict(fit, newdata = newdata) 
+```
+
+]]
+.column.bg-main5[.content.vmiddle.center[
+
+
+
+## .white[The genDA algorithm can be fit with the following syntax]
+
+
+
+##### .orange[(*I expect the syntax will change slightly as I further improve the R package*)]
+
+
+
+]]
+
 
 
 
 ---
 
-class: middle center white
+class: middle center bg-main5
 
-# .black[100 Trial, 5 Fold CV]
+# .white[100 Trial, 5 Fold CV]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="864" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" width="864" /&gt;
 
 
 
