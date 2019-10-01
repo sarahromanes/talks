@@ -49,7 +49,7 @@ background-size: cover
 
 # .large[**genDA**]
 ## A generalised discriminant analysis algorithm
-## for mixed-response type data.
+## for mixed-response type data
 
 <br>
 
@@ -61,6 +61,7 @@ background-size: cover
 
 ### `r anicon::faa('link', animate='vertical', rtext='&nbsp;bit.ly/SR-YoungStats', color='white')`
 
+<img src="images/USydLogo-white.svg" style="position:absolute; bottom:2%; left:65%;width:200px">
 
 ]]
 
@@ -167,7 +168,7 @@ class: split-two white
 # **Advantages**
 
 <br>
-
+<br>
 
 ## `r icon::fa("check", size=1)` Intuitive, and easy to use.
 
@@ -189,7 +190,6 @@ class: split-two white
 # **Disadvantages**
 
 <br>
-
 
 ## `r icon::fa("times", size=1)` Does not work when $p > n$ due to MLE covariance matrix estimates being singular.
 
@@ -233,30 +233,68 @@ background-size: cover
 
 ---
 
-class: center bg-main2
+class: split-two 
 
-# Generalised Linear Latent Variable Models
+.column.bg-main2[.content[
 
 <br>
 
-.larger[
-$$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  \color{orange}{ + \boldsymbol{u}_i^T\boldsymbol{\lambda}_j }$$
-]
+## ** Generalised Linear Latent Variable Models**
+
+<br>
+
+### `r icon::fa("angle-right", size=1)` Let $\mathbf{Y}$ denote a $n \times m$ response matrix. 
+### `r icon::fa("angle-right", size=1)` Let $\mathbf{X}$ denote a design matrix of class information for each observation. 
+
+### `r icon::fa("angle-right", size=1)` In a GLLVM, the mean responses are regressed against a vector of $d \ll m$ latent variables $\mathbf{u}_i$ along with the class covariates.
+
+]]
+.column[.content.vmiddle.center[
+
+
+.large[.black[
+
+$$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \mathbf{x}_i^T\boldsymbol{\beta}_j  \color{orange}{ + \mathbf{u}_i^T\boldsymbol{\lambda}_j }$$ 
+
+]]
+
+### .black[*where*]
+
+.large[.black[
+$$\mathbf{u}_i \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_d)$$  ]]
+
+]]
 
 
 ---
+class: split-two 
 
-class: center bg-main2
-
-# Generalised Linear Latent Variable Models
+.column.bg-main2[.content[
 
 <br>
 
-.larger[
-$$p(y_{ij}| \boldsymbol{u}_i, \boldsymbol{\Psi}) = \left\{ \frac{y_{ij} \eta_{ij} - b(\theta_{ij}) }{\phi_j} + c(y_{ij}, \phi_j)  \right\}.$$
-]
+## ** Generalised Linear Latent Variable Models**
+<br>
+
+### `r icon::fa("angle-right", size=1)`  To complete the formulation we assume that conditional on the latent variables $\mathbf{u}_i$ and parameter vector $\boldsymbol{\Psi}$, the responses are independent observations from the exponential family of distributions.
+
+<br>
+
+### `r icon::fa("angle-right", size=1)` .orange[**We can capture differing response types through altering the exponential family representation for each column as needed**]
+
+]]
+.column[.content.vmiddle.center[
 
 
+.medium[.black[
+
+$$p(y_{ij}| \mathbf{u}_i, \boldsymbol{\Psi}) = \left\{ \frac{y_{ij} a_j(\eta_{ij}) - b_j(\eta_{ij}) }{\phi_j} + c_j(y_{ij}, \phi_j)  \right\}$$
+
+]]
+
+
+
+]]
 
 
 ---
@@ -267,12 +305,15 @@ class: split-33
 
 <br>
 
-# ** GLLVMs **
+# ** GLLVMs for DA **
 
 <br>
 
-# Correlation structure is captured in $\Large{\boldsymbol{u_i}}$ (latent), with corresponding coefficients $\Large{\boldsymbol{\lambda_j}}$.
+## .orange[*Common Covariance*]
 
+<br>
+
+## In the common covariance model, class information is captured in $\mathbf{x}_i$. 
 
 
 ]]
@@ -292,13 +333,17 @@ class: split-33
 
 <br>
 
-# ** GLLVMs **
+# ** GLLVMs for DA **
 
 <br>
+
+## .orange[*Separate Covariance*]
 
 <br>
 
 ## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
 
 
 ]]
@@ -320,14 +365,9 @@ class: split-two
 
 <br>
 
-# ** GLLVMs **
+# ** Estimating GLLVMs **
 
-<br>
-
-<br>
-
-
-## However, the integral needed to obtain the marginal likelihood proves to be intractable.
+## `r icon::fa("angle-right", size=1)`  To obtain estimates for $\boldsymbol{\Psi}$, we must first marginalise over the latent variables $\mathbf{u}_i$ as they are unobserved.
 
 
 ]]
@@ -337,12 +377,77 @@ class: split-two
 .medium[.black[
 
 $$\begin{align}
-      \ell(\boldsymbol{\Psi}) & = \sum_{i=1}^n \log \left\{p(\boldsymbol{y}_i, \boldsymbol{\Psi}) \right\} \\
-                              & = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \boldsymbol{u}_i,\boldsymbol{\Psi}) p(\boldsymbol{u}_i) d \boldsymbol{u}_i \right)
+      \ell(\boldsymbol{\Psi}) & = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              & = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
    \end{align}$$
 ]]
 
-<img src="images/cool.gif", width="85%">
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** Estimating GLLVMs **
+
+## `r icon::fa("angle-right", size=1)`  To obtain estimates for $\boldsymbol{\Psi}$, we must first marginalise over the latent variables $\mathbf{u}_i$ as they are unobserved.
+
+
+## `r icon::fa("angle-right", size=1)`  However, the integral needed to obtain the marginal likelihood proves to be intractable. 
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+$$\begin{align}
+      \ell(\boldsymbol{\Psi}) & = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              & = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$
+]]
+
+<img src="images/cool.gif", width="80%">
+
+]]
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+<br>
+
+# ** Estimating GLLVMs **
+
+## `r icon::fa("angle-right", size=1)`  To obtain estimates for $\boldsymbol{\Psi}$, we must first marginalise over the latent variables $\mathbf{u}_i$ as they are unobserved.
+
+
+## `r icon::fa("angle-right", size=1)`  However, the integral needed to obtain the marginal likelihood proves to be intractable. .orange[How do we overcome this?]
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+$$\begin{align}
+      \ell(\boldsymbol{\Psi}) & = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              & = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$
+]]
+
+<img src="images/cool.gif", width="80%">
 
 ]]
 ---
@@ -368,11 +473,11 @@ class: split-two
 
 <br>
 
-# ** GLLVMs **
+# **VA for GLLVMs **
 
 <br>
 
-<br>
+### `r icon::fa("angle-right", size=1)`  Hui et. al. (2017) show that it is optimal to pick $q(\mathbf{u}_i) \sim \mathcal{N}(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)$, leading to the following expression for the approximate marginal log likelihood.
 
 
 
@@ -382,10 +487,10 @@ class: split-two
 .column[.content.vmiddle.center[
 
 
-.medium[.black[
+.mediumIsh[.black[
 
 $$\begin{align}
-      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) & = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} - E_q\{b(\theta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) & = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} a(\widetilde{\eta}_{ij}) - E_q\{b(\eta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
                               & + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
    \end{align}$$
 ]]
@@ -393,7 +498,46 @@ $$\begin{align}
 ### .black[*where*]
 
 .medium[.black[
-$$\widetilde{\eta}_{ij} = \beta_{0j} + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j.$$  ]]
+$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$  ]]
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+<br>
+
+# **VA for GLLVMs **
+
+<br>
+
+### `r icon::fa("angle-right", size=1)`  Hui et. al. (2017) show that it is optimal to pick $q(\mathbf{u}_i) \sim \mathcal{N}(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)$, leading to the following expression for the approximate marginal log likelihood.
+
+### `r icon::fa("angle-right", size=1)` .orange[Maximising the approximate lower bound is equivalent to minimising KL divergence between approximation and true marginal likelihood.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) & = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} a(\widetilde{\eta}_{ij}) - E_q\{b(\eta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
+                              & + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$
+]]
+
+### .black[*where*]
+
+.medium[.black[
+$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$  ]]
 
 
 ]]
@@ -487,11 +631,11 @@ class: split-two white
 ### `r icon::fa("angle-right", size=1)` Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc measured at different resolutions.
 
 ]]
-.column[.content.vmiddle.center[
+.column.bg-main1[.content.vmiddle.center[
 
 <img src="images/urban.jpg", width="80%">
 
-##### .pink[Source: Johnson, 2013].
+##### .orange[Source: Johnson, 2013].
 
 ]]
 
@@ -518,7 +662,7 @@ class: split-two white
 
 
 ]]
-.column[.content.vmiddle.center[
+.column.bg-main1[.content.vmiddle.center[
 
  <img src="images/covariance.png", width="75%">
 
@@ -539,18 +683,19 @@ class: split-two white
 
 
 
-## EDA shows that data is .orange[not normal], with a mix of positive skew and count data.
+## EDA shows that data is .orange[not normal], with a mix of positive skew, Gaussian, and count data.
 
 
 <br>
+<br>
 
-# .orange[Let's give genDA a go on this data!]
+# .orange[**Let's give genDA a go on this data!**]
 
 
 
 
 ]]
-.column[.content.vmiddle[
+.column.bg-main1[.content.vmiddle[
 
 ```{r, eval = FALSE}
 # A tibble: 168 x 148
@@ -597,15 +742,14 @@ prediction <- predict(fit, newdata = newdata)
 ```
 
 ]]
-.column.bg-main5[.content.vmiddle.center[
+.column.bg-main1[.content.vmiddle.center[
 
 
+### .black[The genDA algorithm can be fit with the `genDA` function, and the generic S3 `predict` method can be used to predict new data points given a trained genDA model.]
 
-## .white[The genDA algorithm can be fit with the following syntax]
+<br>
 
-
-
-##### .orange[(*I expect the syntax will change slightly as I further improve the R package*)]
+#### .orange[(*Note: I expect the syntax will change slightly as I further improve the R package*)]
 
 
 
@@ -616,9 +760,9 @@ prediction <- predict(fit, newdata = newdata)
 
 ---
 
-class: middle center bg-main5
+class: middle center bg-main1
 
-# .white[100 Trial, 5 Fold CV]
+# .black[100 Trial, 5 Fold CV]
 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE, fig.retina=4, fig.width=12,dev='svg',dev.args   = list(bg = 'transparent') }
 load("data/urban.RData")
@@ -633,8 +777,8 @@ ggplot(results, aes(x=method, y=(1-value)*100 )) +
     plot.background   = element_rect(fill = 'transparent', colour = NA),
     legend.background = element_rect(fill = 'transparent', colour = NA),
     legend.key        = element_rect(fill = 'transparent', colour = NA),
-    axis.title        = element_text(size = 18, colour = "white"),
-    axis.text         = element_text(size = 16, colour = "white"),
+    axis.title        = element_text(size = 18, colour = "black"),
+    axis.text         = element_text(size = 16, colour = "black"),
     strip.text        = element_text(size = 20),
     text = element_text(size=18),
     legend.position = "none"
@@ -667,17 +811,21 @@ class: split-two white
 
 ]]
 
-.column.bg-main5[.content.center[
+.column.bg-main8[.content.center[
 
 <br>
 
-## Thank you!
+# **Acknowledgements**
 
+<br>
+
+### `r icon::fa("angle-right", size=1)` Slides are made in *rmarkdown* using *xaringan* (Yihui Xie) and *ninja* theme (Emi Tanaka).
+
+### `r icon::fa("angle-right", size=1)` Thank you to SSA NSW for the YSC Travel Grant to attend this conference.
 <img src="images/SSA_logo.png", width="50%">
 
-### - Slides are made in `rmarkdown` using `xaringan` (Yihui Xie) and *ninja* theme (Emi Tanaka).
 
-## Add acknowledgement to SSA NSW
+
 
 ]]
 

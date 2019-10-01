@@ -44,9 +44,11 @@
   }
 }
 
+.largest { font-size: 250% }
 .larger { font-size: 200% }
 .large { font-size: 130% }
 .medium { font-size: 115%}
+.mediumIsh{ font-size: 105% }
 .small { font-size: 70% }
 
 

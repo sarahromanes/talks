@@ -35,7 +35,7 @@ background-size: cover
 
 # .large[**genDA**]
 ## A generalised discriminant analysis algorithm
-## for mixed-response type data.
+## for mixed-response type data
 
 &lt;br&gt;
 
@@ -47,6 +47,7 @@ background-size: cover
 
 ### <span>&lt;i class="fas  fa-link faa-vertical animated " style=" color:white;"&gt;&lt;/i&gt;&amp;nbsp;bit.ly/SR-YoungStats</span>
 
+&lt;img src="images/USydLogo-white.svg" style="position:absolute; bottom:2%; left:65%;width:200px"&gt;
 
 ]]
 
@@ -112,7 +113,7 @@ class: split-two white
 # **Advantages**
 
 &lt;br&gt;
-
+&lt;br&gt;
 
 ## <i class="fas  fa-check "></i> Intuitive, and easy to use.
 
@@ -134,7 +135,6 @@ class: split-two white
 # **Disadvantages**
 
 &lt;br&gt;
-
 
 ## <i class="fas  fa-times "></i> Does not work when `\(p &gt; n\)` due to MLE covariance matrix estimates being singular.
 
@@ -178,30 +178,68 @@ background-size: cover
 
 ---
 
-class: center bg-main2
+class: split-two 
 
-# Generalised Linear Latent Variable Models
+.column.bg-main2[.content[
 
 &lt;br&gt;
 
-.larger[
-`$$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  \color{orange}{ + \boldsymbol{u}_i^T\boldsymbol{\lambda}_j }$$`
-]
+## ** Generalised Linear Latent Variable Models**
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Let `\(\mathbf{Y}\)` denote a `\(n \times m\)` response matrix. 
+### <i class="fas  fa-angle-right "></i> Let `\(\mathbf{X}\)` denote a design matrix of class information for each observation. 
+
+### <i class="fas  fa-angle-right "></i> In a GLLVM, the mean responses are regressed against a vector of `\(d \ll m\)` latent variables `\(\mathbf{u}_i\)` along with the class covariates.
+
+]]
+.column[.content.vmiddle.center[
+
+
+.large[.black[
+
+`$$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \mathbf{x}_i^T\boldsymbol{\beta}_j  \color{orange}{ + \mathbf{u}_i^T\boldsymbol{\lambda}_j }$$` 
+
+]]
+
+### .black[*where*]
+
+.large[.black[
+`$$\mathbf{u}_i \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_d)$$`  ]]
+
+]]
 
 
 ---
+class: split-two 
 
-class: center bg-main2
-
-# Generalised Linear Latent Variable Models
+.column.bg-main2[.content[
 
 &lt;br&gt;
 
-.larger[
-`$$p(y_{ij}| \boldsymbol{u}_i, \boldsymbol{\Psi}) = \left\{ \frac{y_{ij} \eta_{ij} - b(\theta_{ij}) }{\phi_j} + c(y_{ij}, \phi_j)  \right\}.$$`
-]
+## ** Generalised Linear Latent Variable Models**
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  To complete the formulation we assume that conditional on the latent variables `\(\mathbf{u}_i\)` and parameter vector `\(\boldsymbol{\Psi}\)`, the responses are independent observations from the exponential family of distributions.
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> .orange[**We can capture differing response types through altering the exponential family representation for each column as needed**]
+
+]]
+.column[.content.vmiddle.center[
 
 
+.medium[.black[
+
+`$$p(y_{ij}| \mathbf{u}_i, \boldsymbol{\Psi}) = \left\{ \frac{y_{ij} a_j(\eta_{ij}) - b_j(\eta_{ij}) }{\phi_j} + c_j(y_{ij}, \phi_j)  \right\}$$`
+
+]]
+
+
+
+]]
 
 
 ---
@@ -212,12 +250,15 @@ class: split-33
 
 &lt;br&gt;
 
-# ** GLLVMs **
+# ** GLLVMs for DA **
 
 &lt;br&gt;
 
-# Correlation structure is captured in `\(\Large{\boldsymbol{u_i}}\)` (latent), with corresponding coefficients `\(\Large{\boldsymbol{\lambda_j}}\)`.
+## .orange[*Common Covariance*]
 
+&lt;br&gt;
+
+## In the common covariance model, class information is captured in `\(\mathbf{x}_i\)`. 
 
 
 ]]
@@ -237,13 +278,17 @@ class: split-33
 
 &lt;br&gt;
 
-# ** GLLVMs **
+# ** GLLVMs for DA **
 
 &lt;br&gt;
+
+## .orange[*Separate Covariance*]
 
 &lt;br&gt;
 
 ## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
 
 
 ]]
@@ -265,14 +310,9 @@ class: split-two
 
 &lt;br&gt;
 
-# ** GLLVMs **
+# ** Estimating GLLVMs **
 
-&lt;br&gt;
-
-&lt;br&gt;
-
-
-## However, the integral needed to obtain the marginal likelihood proves to be intractable.
+## <i class="fas  fa-angle-right "></i>  To obtain estimates for `\(\boldsymbol{\Psi}\)`, we must first marginalise over the latent variables `\(\mathbf{u}_i\)` as they are unobserved.
 
 
 ]]
@@ -282,12 +322,77 @@ class: split-two
 .medium[.black[
 
 `$$\begin{align}
-      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\boldsymbol{y}_i, \boldsymbol{\Psi}) \right\} \\
-                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \boldsymbol{u}_i,\boldsymbol{\Psi}) p(\boldsymbol{u}_i) d \boldsymbol{u}_i \right)
+      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
    \end{align}$$`
 ]]
 
-&lt;img src="images/cool.gif", width="85%"&gt;
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** Estimating GLLVMs **
+
+## <i class="fas  fa-angle-right "></i>  To obtain estimates for `\(\boldsymbol{\Psi}\)`, we must first marginalise over the latent variables `\(\mathbf{u}_i\)` as they are unobserved.
+
+
+## <i class="fas  fa-angle-right "></i>  However, the integral needed to obtain the marginal likelihood proves to be intractable. 
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+`$$\begin{align}
+      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$`
+]]
+
+&lt;img src="images/cool.gif", width="80%"&gt;
+
+]]
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** Estimating GLLVMs **
+
+## <i class="fas  fa-angle-right "></i>  To obtain estimates for `\(\boldsymbol{\Psi}\)`, we must first marginalise over the latent variables `\(\mathbf{u}_i\)` as they are unobserved.
+
+
+## <i class="fas  fa-angle-right "></i>  However, the integral needed to obtain the marginal likelihood proves to be intractable. .orange[How do we overcome this?]
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+`$$\begin{align}
+      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$`
+]]
+
+&lt;img src="images/cool.gif", width="80%"&gt;
 
 ]]
 ---
@@ -313,11 +418,11 @@ class: split-two
 
 &lt;br&gt;
 
-# ** GLLVMs **
+# **VA for GLLVMs **
 
 &lt;br&gt;
 
-&lt;br&gt;
+### <i class="fas  fa-angle-right "></i>  Hui et. al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the approximate marginal log likelihood.
 
 
 
@@ -327,10 +432,10 @@ class: split-two
 .column[.content.vmiddle.center[
 
 
-.medium[.black[
+.mediumIsh[.black[
 
 `$$\begin{align}
-      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} - E_q\{b(\theta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} a(\widetilde{\eta}_{ij}) - E_q\{b(\eta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
                               &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
    \end{align}$$`
 ]]
@@ -338,7 +443,46 @@ class: split-two
 ### .black[*where*]
 
 .medium[.black[
-`$$\widetilde{\eta}_{ij} = \beta_{0j} + \boldsymbol{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j.$$`  ]]
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et. al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the approximate marginal log likelihood.
+
+### <i class="fas  fa-angle-right "></i> .orange[Maximising the approximate lower bound is equivalent to minimising KL divergence between approximation and true marginal likelihood.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} a(\widetilde{\eta}_{ij}) - E_q\{b(\eta_{ij}) \}}{\phi_j} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
 
 
 ]]
@@ -432,11 +576,11 @@ class: split-two white
 ### <i class="fas  fa-angle-right "></i> Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc measured at different resolutions.
 
 ]]
-.column[.content.vmiddle.center[
+.column.bg-main1[.content.vmiddle.center[
 
 &lt;img src="images/urban.jpg", width="80%"&gt;
 
-##### .pink[Source: Johnson, 2013].
+##### .orange[Source: Johnson, 2013].
 
 ]]
 
@@ -463,7 +607,7 @@ class: split-two white
 
 
 ]]
-.column[.content.vmiddle.center[
+.column.bg-main1[.content.vmiddle.center[
 
  &lt;img src="images/covariance.png", width="75%"&gt;
 
@@ -484,18 +628,19 @@ class: split-two white
 
 
 
-## EDA shows that data is .orange[not normal], with a mix of positive skew and count data.
+## EDA shows that data is .orange[not normal], with a mix of positive skew, Gaussian, and count data.
 
 
 &lt;br&gt;
+&lt;br&gt;
 
-# .orange[Let's give genDA a go on this data!]
+# .orange[**Let's give genDA a go on this data!**]
 
 
 
 
 ]]
-.column[.content.vmiddle[
+.column.bg-main1[.content.vmiddle[
 
 
 ```r
@@ -544,15 +689,14 @@ prediction &lt;- predict(fit, newdata = newdata)
 ```
 
 ]]
-.column.bg-main5[.content.vmiddle.center[
+.column.bg-main1[.content.vmiddle.center[
 
 
+### .black[The genDA algorithm can be fit with the `genDA` function, and the generic S3 `predict` method can be used to predict new data points given a trained genDA model.]
 
-## .white[The genDA algorithm can be fit with the following syntax]
+&lt;br&gt;
 
-
-
-##### .orange[(*I expect the syntax will change slightly as I further improve the R package*)]
+#### .orange[(*Note: I expect the syntax will change slightly as I further improve the R package*)]
 
 
 
@@ -563,9 +707,9 @@ prediction &lt;- predict(fit, newdata = newdata)
 
 ---
 
-class: middle center bg-main5
+class: middle center bg-main1
 
-# .white[100 Trial, 5 Fold CV]
+# .black[100 Trial, 5 Fold CV]
 
 &lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" width="864" /&gt;
 
@@ -595,17 +739,21 @@ class: split-two white
 
 ]]
 
-.column.bg-main5[.content.center[
+.column.bg-main8[.content.center[
 
 &lt;br&gt;
 
-## Thank you!
+# **Acknowledgements**
 
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Slides are made in *rmarkdown* using *xaringan* (Yihui Xie) and *ninja* theme (Emi Tanaka).
+
+### <i class="fas  fa-angle-right "></i> Thank you to SSA NSW for the YSC Travel Grant to attend this conference.
 &lt;img src="images/SSA_logo.png", width="50%"&gt;
 
-### - Slides are made in `rmarkdown` using `xaringan` (Yihui Xie) and *ninja* theme (Emi Tanaka).
 
-## Add acknowledgement to SSA NSW
+
 
 ]]
     </textarea>
