@@ -516,7 +516,7 @@ class: split-two
 
 <br>
 
-### `r icon::fa("angle-right", size=1)`  Hui et. al. (2017) show that it is optimal to pick $q(\mathbf{u}_i) \sim \mathcal{N}(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)$, leading to the following expression for the approximate marginal log likelihood.
+### `r icon::fa("angle-right", size=1)`  Hui et al. (2017) show that it is optimal to pick $q(\mathbf{u}_i) \sim \mathcal{N}(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)$, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
 
 ### `r icon::fa("angle-right", size=1)` .orange[Maximising the approximate lower bound is equivalent to minimising KL divergence between approximation and true marginal likelihood.]
 
