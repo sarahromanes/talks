@@ -246,7 +246,7 @@ class: split-two
 ### `r icon::fa("angle-right", size=1)` Let $\mathbf{Y}$ denote a $n \times m$ response matrix. 
 ### `r icon::fa("angle-right", size=1)` Let $\mathbf{X}$ denote a design matrix of class information for each observation. 
 
-### `r icon::fa("angle-right", size=1)` In a GLLVM, the mean responses are regressed against a vector of $d \ll m$ latent variables $\mathbf{u}_i$ along with the class covariates.
+### `r icon::fa("angle-right", size=1)` In a GLLVM, the mean responses are regressed against a .orange[vector of] $\color{orange}{d \ll m}$ .orange[latent variables] $\color{orange}{\mathbf{u}_i}$ along with the class covariates.
 
 ]]
 .column[.content.vmiddle.center[
