@@ -1,0 +1,171 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+/******************
+ kunoichi.css must also be coupled with ninjutsu.css to be effective
+ See https://emitanaka.github.io/ninja-theme/kunoichi-theme-example.html for an example.
+
+******************/
+
+
+:root {
+    --main-color1: #DDEFEF;
+    --main-color2: #716161;
+    --main-color3: #CFBFA8;
+    --main-color4: #966338;
+    --main-color5: #A18Fa7;
+    --main-color6: #52608D;
+    --main-color7: #9F8F78;
+    --main-color8: #DDA866;
+    --main-color9: white;
+    --text-color1: white;
+    --text-color2: white;
+    --text-color3: white;
+    --text-color4: white;
+    --text-color5: black;
+    --text-opacity: white;
+    --link-color: #ecadec;
+    --alert-color: #CF3C18;
+    --text-alert: white;
+    --code-background: #f8f8f8;
+    --code-inline-color: #ffaf40;
+    --code-text-color: black;
+    --code-highlight: rgba(161, 143, 167, 0.3);
+    --color-opacity70: rgba(113, 97, 97,0.7);
+    --color-opacity50: rgba(86,36,87,0.5);
+    --color-opacity30: rgba(86,36,87,0.3);
+    --logo: url("../images/R-LadiesGlobal-transparent.png");
+    --title-background: url("../bkgs/bg1.jpg");
+}
+
+.title-slide {
+  width: 60%;
+  text-align: left!important;
+  height:100%;
+  display: table;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--color-opacity70);
+  color: white;
+  padding: 0;
+  border-left-color: white;
+  border-left-style: solid;
+  border-left-width: 0.5em;
+}
+
+.remark-slide {
+  background-color: var(--main-color4);
+  background-image: var(--logo), var(--title-background);
+  background-size:  10%, cover;
+  background-position: left bottom, 100%;
+  background-repeat: no-repeat;
+}
+
+.bg-code {
+  color: var(--code-text-color);
+  background-color: var(--code-background);
+}
+
+
+.title-slide h1 { padding-top: 20%; font-size: 4em;}
+.title-slide h1, .title-slide h2, .title-slide h3  {
+  padding-left: 4%!important;
+  padding-right: 4%!important;
+}
+
+.title-slide .remark-slide-number { display: none; }
+
+.bg-main1 { background-color: var(--main-color1); color: var(--text-color1);}
+.bg-main2 { background-color: var(--main-color2); color: var(--text-color2);}
+.bg-main3 { background-color: var(--main-color3); color: var(--text-color3);}
+.bg-main4 { background-color: var(--main-color4); color: var(--text-color4);}
+.bg-main5 { background-color: var(--main-color5); color: var(--text-color5);}
+.bg-main6 { background-color: var(--main-color6); color: var(--text-color5);}
+.bg-main7 { background-color: var(--main-color7); color: var(--text-color5);}
+.bg-main8 { background-color: var(--main-color8); color: var(--text-color5);}
+.bg-main9 { background-color: var(--main-color9); color: var(--text-color5);}
+
+
+.bgcolor_alert { background-color: var(--alert-color)!important; color: var(--text-alert); }
+
+.color-main1 { color: var(--main-color1);}
+.color-main2 { color: var(--main-color2);}
+.color-main3 { color: var(--main-color3);}
+.color-main4 { color: var(--main-color4);}
+.color-main5 { color: var(--main-color5);}
+.color-alert { color: var(--alert-color);}
+
+.shade_main  {
+    background-color: var(--color-opacity70);
+    color: var(--text-opacity);
+    width: 100%;
+    padding: 0;
+}
+
+
+.shade_fill  {
+    background-color: var(--main-color9);
+    color: var(--text-opacity);
+    width: 100%;
+    padding: 0;
+}
+
+.remark-visible .remark-slide-scaler {overflow-y: auto;}
+.remark-code {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.font-mono {
+  font-family: monospace;
+}
+
+
+.remark-code-line-highlighted { background-color: var(--code-highlight); }
+
+
+h1, h2, h3, body{
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
+.remark-code, .remark-inline-code {
+  font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+  color: var(--code-inline-color);
+}
+.remark-code {
+  color: var(--code-text-color);
+  background-color: var(--code-background);
+}
+
+pre {
+  color: var(--code-text-color);
+  background-color: var(--code-background);
+  line-height: 1.5;
+  padding: 5px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+h1 { font-size: 3.5em; }
+h2 { font-size: 3em; }
+h3 { font-size: 1.6em; }
+h4 { font-size: 1em; }
+
+body{
+  font-size: 1em;
+}
+
+a { color: var(--link-color); text-decoration: none; }
+
+.check-box {
+  border-style:solid;
+  padding-left:8px;
+  padding-right:8px;
+  border-width:2px;
+  border-radius: 10px;
+  background-color: #CFBFA8;
+}

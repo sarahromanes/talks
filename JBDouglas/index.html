@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>genDA and multiDA</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sarah Romanes" />
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets\kunoichi.css" type="text/css" />
+    <link rel="stylesheet" href="assets\ninjutsu.css" type="text/css" />
+    <link rel="stylesheet" href="assets\custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets\ninpo.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: split-40 hide-slide-number with-thick-border border-white
+background-image: url("bkg/bg1.png")
+background-size: cover
+
+.column[.content.vmiddle.center[
+
+
+
+]]
+.column.shade_main[.content.vmiddle[
+
+&lt;br&gt;
+
+# .large[genDA]
+## A Discriminant Analysis Method for Large Scale 
+## and Complex Datasets
+
+&lt;br&gt;
+
+### Sarah Romanes  <span>&lt;i class="fab  fa-twitter faa-float animated " style=" color:white;"&gt;&lt;/i&gt;sarah_romanes</span> 
+
+&lt;br&gt;
+
+### J.B Douglas Award, 2019
+
+### <span>&lt;i class="fas  fa-link faa-vertical animated " style=" color:white;"&gt;&lt;/i&gt;&amp;nbsp;bit.ly/SR-YoungStats</span>
+
+&lt;img src="images/USydLogo-white.svg" style="position:absolute; bottom:2%; left:65%;width:200px"&gt;
+
+]]
+
+
+---
+
+class: split-33 white
+
+.row.bg-main5[.content.vmiddle.center[
+# .white[There is a growing need for interpretable ML]
+]]
+
+.row.bg-main2[.content[
+.split-three[
+.column.bg-main2[.content.vmiddle.center[
+     # <i class="fas  fa-dna fa-4x "></i> 
+     ]]
+.column.bg-main2[.content.vmiddle.center[
+      # <i class="fas  fa-file-medical fa-4x "></i> 
+     ]]
+ .column.bg-main2[.content.vmiddle.center[
+      # <i class="fas  fa-gavel fa-4x "></i> 
+     ]]
+]]]
+
+---
+
+
+class: split-70 hide-slide-number
+background-image: url("bkg/bg3.png")
+background-size: cover
+
+.column.slide-in-left[
+.sliderbox.vmiddle.shade_main.center[
+.font5[Discriminant Analysis]]]
+.column[
+]
+
+
+---
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **What is Discriminant Analysis?**
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Discriminant Analysis (Fisher, 1936) is a ML technique that seeks to find a linear combination of features that separates classes of objects.
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>   It *strictly* assumes the conditional distribution of the data, given class grouping, is .orange[multivariate normal].
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>   Available through `MASS` package in <i class="fab  fa-r-project "></i> with functions `lda` (common covariance) and `qda`. 
+
+
+]]
+.column.bg-main5[.content.vmiddle.center[
+
+
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-1-1.svg" width="504" /&gt;
+
+
+
+ 
+
+]]
+
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Advantages**
+
+&lt;br&gt;
+&lt;br&gt;
+
+## <i class="fas  fa-check "></i> Intuitive, and easy to use.
+
+&lt;br&gt;
+
+## <i class="fas  fa-check "></i> Describes data generating process as well as provide a classifier for new points.
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+# .orange[**but...**]
+
+]]
+.column.bg-main5[.content[
+
+&lt;br&gt;
+
+# **Disadvantages**
+
+&lt;br&gt;
+
+## <i class="fas  fa-times "></i> Does not work when `\(p &gt; n\)` due to MLE covariance matrix estimates being singular.
+
+&lt;br&gt;
+
+## <i class="fas  fa-times "></i> Does not work for non-Normal data types.
+
+&lt;br&gt;
+
+]]
+
+
+---
+
+class: middle center hide-slide-number
+background-image: url("bkg/bg2.png")
+background-size: cover
+
+# .black[<i class="fas  fa-question fa-3x "></i>]
+
+
+
+---
+
+class: split-60 hide-slide-number
+background-image: url("bkg/bg2.png")
+background-size: cover
+
+
+.column.slide-in-right[
+.sliderbox.vmiddle.shade_main.center[
+.font5[ for GLLVMs  <i class="fas  fa-thumbs-up "></i>]]]
+.column[
+]
+
+.column.slide-in-left[
+.sliderbox.shade_main.center[
+.font5[Swap multivariate Normals ]]]
+.column[
+]
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+## ** Generalised Linear Latent Variable Models**
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Let `\(\mathbf{Y}\)` denote a `\(n \times m\)` response matrix. 
+### <i class="fas  fa-angle-right "></i> Let `\(\mathbf{X}\)` denote a design matrix of class information for each observation. 
+
+### <i class="fas  fa-angle-right "></i> In a GLLVM, the mean responses are regressed against a .orange[vector of] `\(\color{orange}{d \ll m}\)` .orange[latent variables] `\(\color{orange}{\mathbf{u}_i}\)` along with the class covariates.
+
+]]
+.column[.content.vmiddle.center[
+
+
+.large[.black[
+
+`$$g(\mu_{ij}) = \eta_{ij} = \beta_0 + \mathbf{x}_i^T\boldsymbol{\beta}_j  \color{orange}{ + \mathbf{u}_i^T\boldsymbol{\lambda}_j }$$` 
+
+]]
+
+### .black[*where*]
+
+.large[.black[
+`$$\mathbf{u}_i \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_d)$$`  ]]
+
+]]
+
+
+---
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+## ** Generalised Linear Latent Variable Models**
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  To complete the formulation we assume that conditional on the latent variables `\(\mathbf{u}_i\)` and parameter vector `\(\boldsymbol{\Psi}\)`, the responses are independent observations from the exponential family of distributions.
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> .orange[**We can capture differing response types through altering the exponential family representation for each column as needed**]
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+`$$p(y_{ij}| \mathbf{u}_i, \boldsymbol{\Psi}) = \left\{ \frac{y_{ij} (\eta_{ij}) - b_j(\eta_{ij}) }{a_j(\phi_j)} + c_j(y_{ij}, \phi_j)  \right\}$$`
+
+]]
+
+
+
+]]
+
+
+
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs for DA **
+
+&lt;br&gt;
+
+## .orange[*Common Covariance*]
+
+&lt;br&gt;
+
+## In the common covariance model, class information is captured in `\(\mathbf{x}_i\)`. 
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/genDA_common.png", width="100%"&gt;
+
+
+
+]]
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** GLLVMs for DA **
+
+&lt;br&gt;
+
+## .orange[*Separate Covariance*]
+
+&lt;br&gt;
+
+## We can model .orange[differing] correlation structures by fitting multiple GLLVMs for different classes.
+
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/genDA_separate.png", width="100%"&gt;
+
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** Estimating GLLVMs **
+
+## <i class="fas  fa-angle-right "></i>  To obtain estimates for `\(\boldsymbol{\Psi}\)`, we must first marginalise over the latent variables `\(\mathbf{u}_i\)` as they are unobserved.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+`$$\begin{align}
+      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$`
+]]
+
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** Estimating GLLVMs **
+
+## <i class="fas  fa-angle-right "></i>  To obtain estimates for `\(\boldsymbol{\Psi}\)`, we must first marginalise over the latent variables `\(\mathbf{u}_i\)` as they are unobserved.
+
+
+## <i class="fas  fa-angle-right "></i>  However, the integral needed to obtain the marginal likelihood proves to be intractable. 
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+`$$\begin{align}
+      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$`
+]]
+
+&lt;br&gt;
+
+# .red[<span>&lt;i class="fas  fa-ban fa-3x faa-flash animated faa-slow "&gt;&lt;/i&gt;</span>]
+
+]]
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# ** Estimating GLLVMs **
+
+## <i class="fas  fa-angle-right "></i>  To obtain estimates for `\(\boldsymbol{\Psi}\)`, we must first marginalise over the latent variables `\(\mathbf{u}_i\)` as they are unobserved.
+
+
+## <i class="fas  fa-angle-right "></i>  However, the integral needed to obtain the marginal likelihood proves to be intractable. .orange[How do we overcome this?]
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.medium[.black[
+
+`$$\begin{align}
+      \ell(\boldsymbol{\Psi}) &amp; = \sum_{i=1}^n \log \left\{p(\mathbf{y}_i, \boldsymbol{\Psi}) \right\} \\
+                              &amp; = \sum_{i=1}^n \log \left( \int \prod_{i=1}^{m} p(y_{ij}| \mathbf{u}_i,\boldsymbol{\Psi}) p(\mathbf{u}_i) d \mathbf{u}_i \right)
+   \end{align}$$`
+]]
+
+&lt;br&gt;
+
+# .red[<span>&lt;i class="fas  fa-ban fa-3x faa-flash animated faa-slow "&gt;&lt;/i&gt;</span>]
+
+]]
+---
+class: center bg-main2
+
+&lt;br&gt;
+
+# Variational Approximations to the rescue!
+
+&lt;br&gt;
+
+&lt;img src="images/superman.gif", width="50%"&gt;
+---
+
+class: middle center hide-slide-number
+background-image: url("images/VA.png")
+background-size: cover
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
+
+&lt;br&gt;
+
+###.orange.center[Maximising the approximate lower bound is equivalent to minimising KL divergence between approximation and true marginal likelihood.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} - E_q\{b(\eta_{ij}) \}}{a(\phi_j)} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
+
+&lt;br&gt;
+
+###.orange.center[However, a direct implementation of this approximation is not feasible for a few key reasons.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} - E_q\{b(\eta_{ij}) \}}{a(\phi_j)} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+---
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
+
+&lt;br&gt;
+
+###.orange.center[However, a direct implementation of this approximation is not feasible for a few key reasons.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} - E_q\{b(\eta_{ij}) \}}{a(\phi_j)} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    1) <i class="fab  fa-r-project "></i> package &lt;code&gt;gllvm&lt;/code&gt; only supports single family response
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
+
+&lt;br&gt;
+
+###.orange.center[However, a direct implementation of this approximation is not feasible for a few key reasons.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} -\color{orange}{ E_q\{b(\eta_{ij}) \}}  }{a(\phi_j)} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(\boldsymbol{\Sigma}_i) - \mbox{tr}(\boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    2) Expectation not guaranteed to have closed form
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+
+---
+
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
+
+&lt;br&gt;
+
+###.orange.center[However, a direct implementation of this approximation is not feasible for a few key reasons.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} -E_q\{b(\eta_{ij}) \}  }{a(\phi_j)} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det( \color{orange}{   \boldsymbol{\Sigma}_i}) - \mbox{tr}(\color{orange}{ \boldsymbol{\Sigma}_i}) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    3) Difficult to optimise for covariance matrices
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **VA for GLLVMs **
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i>  Hui et al. (2017) show that it is optimal to pick `\(q(\mathbf{u}_i) \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\)`, leading to the following expression for the variational lower bound for the approximate marginal log likelihood.
+
+&lt;br&gt;
+
+###.orange.center[However, a direct implementation of this approximation is not feasible for a few key reasons.]
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+.mediumIsh[.black[
+
+`$$\begin{align}
+      \underline{\ell}(\boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; = \sum_{i=1}^n \sum_{j=1}^{m}  \left\{ \frac{y_{ij} \widetilde{\eta}_{ij} -E_q\{b(\eta_{ij}) \}  }{a(\phi_j)} + c(y_{ij}, \phi_j)  \right\} \\
+                              &amp; + \frac{1}{2} \sum_{i=1}^{n} ( \log \det(   \boldsymbol{\Sigma}_i) - \mbox{tr}( \boldsymbol{\Sigma}_i) - \boldsymbol{\mu}_i^T\boldsymbol{\mu}_i ),
+   \end{align}$$`
+]]
+
+### .black[*where*]
+
+.medium[.black[
+`$$\widetilde{\eta}_{ij} = \beta_{0j} + \mathbf{x}_i^T\boldsymbol{\beta}_j  + \boldsymbol{\mu}_i^T\boldsymbol{\lambda}_j$$`  ]]
+
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    4) No regularisation of model parameters
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+
+---
+class: bg-main2 middle center
+
+# **Some adjustments are necessary!**
+
+&lt;br&gt;
+
+# .white[<span>&lt;i class="fas  fa-wrench fa-5x faa-wrench animated faa-slow "&gt;&lt;/i&gt;</span>]
+
+
+---
+
+class: split-two 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+## A twist we will add, in comparison to previous work, is approach this from a .orange[*Bayesian*] framework, with the priors on our coefficients allowing us to incorporate .orange[*regularisation*] in the fitting process. 
+
+&lt;br&gt;
+
+## We use the following prior specification:
+
+]]
+.column[.content.vmiddle.center[
+
+.large[.black[
+
+`$$\begin{align}
+      \beta_{0} \sim \mathcal{N}(\mathbf{0}, \sigma^2_{\beta_{0}}\mathbf{I}), \\
+      \boldsymbol{\beta}_j \sim  \mathcal{N}(\mathbf{0}, \sigma^2_{\beta_{j}}\mathbf{I}), \\
+      \boldsymbol{\lambda}_j \sim  \mathcal{N}(\mathbf{0}, \sigma^2_{\lambda_{j}}\mathbf{I}),
+   \end{align}$$`
+]]
+
+.black[### and for the dispersion parameter(if applicable)]
+.large[.black[
+
+`$$\begin{align}
+p(\phi_j) \propto 1.
+   \end{align}$$`
+]]
+
+
+]]
+
+
+---
+
+class: split-33
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We consider the following parameterisation to construct our variational lower bound, where we assume both `\(q\)` densities are multivariate normal.
+
+
+]]
+.column[.content.vmiddle.center[
+
+.larger[.black[
+
+`$$\begin{align}
+q(\mathbf{u}, \boldsymbol{\Psi}) = \prod_{i=1}^{n} q(\mathbf{u}_i)q(\boldsymbol{\Psi})
+\end{align}$$`
+
+]]
+
+
+
+]]
+
+---
+
+class: split-33
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We can then construct our variational lower bound as follows:
+
+
+]]
+.column[.content.vmiddle.center[
+
+.black[
+
+`$$\begin{align}
+		\log \underline{p}(\mathbf{Y}, \mathbf{X}, \boldsymbol{\Psi}, \boldsymbol{\xi}) &amp;  = \sum_{i=1}^n \Big\{  (\mathbf{y}_{i} \odot a(\boldsymbol{\phi})^{-1})^T(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)  \\
+		&amp; - (a(\boldsymbol{\phi})^{-1})^T E_{\mathbf{u}_i} \left( b(\boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\mathbf{u}_i) \right) + \mathbf{1}^Tc(\mathbf{y}_i, \boldsymbol{\phi}) \Big\}\\	
+		&amp; +  \sum_{i=1}^{n} \tfrac{1}{2}\left( \log |\boldsymbol{\Sigma}_i| - \mbox{tr}(\boldsymbol{\Sigma}_i) - \|\boldsymbol{\mu}_i\|^2 \right) \\
+		&amp;- \frac{\|\boldsymbol{\beta}_0\|^2}{2\sigma_\beta^2} - \sum_{j=1}^m \frac{\|\boldsymbol{\beta}_j\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\lambda}_j\|^2}{2\sigma_\lambda^2}.
+   \end{align}$$`
+]
+
+]]
+---
+
+class: split-33
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We can then construct our variational lower bound as follows:
+
+
+]]
+.column[.content.vmiddle.center[
+
+.black[
+
+`$$\begin{align}
+		\log \underline{p}(\mathbf{Y}, \mathbf{X}, \boldsymbol{\Psi}, \boldsymbol{\xi}) &amp;  = \sum_{i=1}^n \Big\{  (\mathbf{y}_{i} \odot a(\boldsymbol{\phi})^{-1})^T(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)  \\
+		&amp; - (a(\boldsymbol{\phi})^{-1})^T \color{orange}{E_{\mathbf{u}_i} \left( b(\boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\mathbf{u}_i) \right)} + \mathbf{1}^Tc(\mathbf{y}_i, \boldsymbol{\phi}) \Big\}\\	
+		&amp; +  \sum_{i=1}^{n} \tfrac{1}{2}\left( \log |\boldsymbol{\Sigma}_i| - \mbox{tr}(\boldsymbol{\Sigma}_i) - \|\boldsymbol{\mu}_i\|^2 \right) \\ &amp; -\frac{\|\boldsymbol{\beta}_0\|^2}{2\sigma_\beta^2} - \sum_{j=1}^m \frac{\|\boldsymbol{\beta}_j\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\lambda}_j\|^2}{2\sigma_\lambda^2}.
+   \end{align}$$`
+]
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    Note - we still have expectation terms remaining
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+
+
+---
+
+class: split-33
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We can then construct our variational lower bound as follows:
+
+&lt;br&gt;
+
+### .orange[We can over come this by applying a *second order delta method approximation* of the form:]
+
+.white[
+
+`$$\begin{align}
+	E(f(\mathbf{X})) &amp; \approx f(E(\mathbf{X})) \\
+	&amp; + \tfrac{1}{2}\mbox{tr}\left[\mathbf{H}(E(\mathbf{X}))\mbox{Cov}(\mathbf{X})\right].
+   \end{align}$$`
+]
+
+### .orange[to obtain:]
+
+
+]]
+.column[.content.vmiddle.center[
+
+.black[
+
+`$$\begin{align}
+		\log \underline{p}(\mathbf{Y}, \mathbf{X}, \boldsymbol{\Psi}, \boldsymbol{\xi}) &amp;  = \sum_{i=1}^n \Big\{  (\mathbf{y}_{i} \odot a(\boldsymbol{\phi})^{-1})^T(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)  \\
+		&amp; - (a(\boldsymbol{\phi})^{-1})^T \color{orange}{E_{\mathbf{u}_i} \left( b(\boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\mathbf{u}_i) \right)} + \mathbf{1}^Tc(\mathbf{y}_i, \boldsymbol{\phi}) \Big\}\\	
+		&amp; +  \sum_{i=1}^{n} \tfrac{1}{2}\left( \log |\boldsymbol{\Sigma}_i| - \mbox{tr}(\boldsymbol{\Sigma}_i) - \|\boldsymbol{\mu}_i\|^2 \right) \\ &amp; -\frac{\|\boldsymbol{\beta}_0\|^2}{2\sigma_\beta^2} - \sum_{j=1}^m \frac{\|\boldsymbol{\beta}_j\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\lambda}_j\|^2}{2\sigma_\lambda^2}.
+   \end{align}$$`
+]
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    Note - we still have expectation terms remaining
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+
+
+
+---
+
+class: split-33
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We can then construct our variational lower bound as follows:
+
+&lt;br&gt;
+
+]]
+.column[.content.vmiddle.center[
+
+.black[
+
+`$$\begin{align}
+	\log \underline{p}(\mathbf{Y}, \mathbf{X}, \boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; \approx  \sum_{i=1}^n \Big[ (\mathbf{y}_{i} \odot a(\boldsymbol{\phi})^{-1})^T(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)  \\ &amp; -  (a(\boldsymbol{\phi})^{-1})^T b(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i) + \mathbf{1}^Tc(\mathbf{y}_i, \boldsymbol{\phi}) \\&amp; - \tfrac{1}{2}\mbox{tr}\left( \color{orange}{\boldsymbol{\Sigma}_i} \left( \mathbf{L}^T \mbox{diag}(a(\boldsymbol{\phi})^{-1} \odot b''( \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)) \mathbf{L} + \mathbf{I} \right)\right)\\&amp; +    \tfrac{1}{2}\left( \log |\color{orange}{\boldsymbol{\Sigma}_i}| - \mbox{tr}(\color{orange}{\boldsymbol{\Sigma}_i}) - \|\boldsymbol{\mu}_i\|^2 \right) \Big]  \\ &amp; - \frac{\|\boldsymbol{\beta}_0\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\beta}_j\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\lambda}_j\|^2}{2\sigma_\lambda^2}.
+\end{align}$$`
+]
+
+
+
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    The covariance terms still remain, and need to be removed
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+---
+class: split-33
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We can then construct our variational lower bound as follows:
+
+&lt;br&gt;
+
+### .orange[We adopt a *profile likelihood* type approach to first optermize over the covariance terms. First order optimality conditions imply]
+
+.small[.white[
+
+`$$\begin{align}
+\widehat{\boldsymbol{\Sigma}}_i = 
+	\left[  \mathbf{L}^T \mbox{diag}(a(\boldsymbol{\phi})^{-1} \odot b''( \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)) \mathbf{L}+ \mathbf{I} \right]^{-1}
+   \end{align}$$`
+]]
+
+
+]]
+.column[.content.vmiddle.center[
+
+.black[
+
+`$$\begin{align}
+	\log \underline{p}(\mathbf{Y}, \mathbf{X}, \boldsymbol{\Psi}, \boldsymbol{\xi}) &amp; \approx  \sum_{i=1}^n \Big[ (\mathbf{y}_{i} \odot a(\boldsymbol{\phi})^{-1})^T(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)  \\ &amp; -  (a(\boldsymbol{\phi})^{-1})^T b(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i) + \mathbf{1}^Tc(\mathbf{y}_i, \boldsymbol{\phi}) \\&amp; - \tfrac{1}{2}\mbox{tr}\left( \color{orange}{\boldsymbol{\Sigma}_i} \left( \mathbf{L}^T \mbox{diag}(a(\boldsymbol{\phi})^{-1} \odot b''( \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)) \mathbf{L} + \mathbf{I} \right)\right)\\&amp; +    \tfrac{1}{2}\left( \log |\color{orange}{\boldsymbol{\Sigma}_i}| - \mbox{tr}(\color{orange}{\boldsymbol{\Sigma}_i}) - \|\boldsymbol{\mu}_i\|^2 \right) \Big]  \\ &amp; - \frac{\|\boldsymbol{\beta}_0\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\beta}_j\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\lambda}_j\|^2}{2\sigma_\lambda^2}.
+\end{align}$$`
+]
+
+
+
+
+]]
+
+&lt;div class="shade_lpurple" style="width:40%; position: absolute; top: 4%; right:2%;border-radius: 12px;" &gt;
+&lt;br&gt;
+&lt;center&gt;
+  &lt;h3&gt;
+    The covariance terms still remain, and need to be removed
+  &lt;/h3&gt;
+  &lt;/center&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+---
+
+class: split-33 
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# A Bayesian GLLVM <i class="fas  fa-lightbulb "></i>
+
+&lt;br&gt;
+
+### We then obtain the final approximated lower bound.
+
+&lt;br&gt;
+
+### .orange[A Laplace approximation is performed to obtain a multivariate approximation for] `\(\color{orange}{q(\boldsymbol{\Psi}).}\)`
+
+
+]]
+.column[.content.vmiddle.center[
+
+.black[
+
+`$$\begin{align}
+\log \underline{p}(\mathbf{Y}, \mathbf{X},\boldsymbol{\Psi},\boldsymbol{\mu}) &amp; \approx \sum_{i=1}^n - \tfrac{1}{2}\log|\mathbf{L}^T \mbox{diag}(a(\boldsymbol{\phi})^{-1} \odot b''( \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i)) \mathbf{L} + \mathbf{I}|\\ &amp;  + (\mathbf{y}_{i} \odot a(\boldsymbol{\phi})^{-1})^T(  \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i) \\ &amp;- (a(\boldsymbol{\phi})^{-1})^T  b( \boldsymbol{\beta}_{0} + \mathbf{B}\mathbf{x}_i + \mathbf{L}\boldsymbol{\mu}_i) \\ &amp; + \mathbf{1}^Tc(\mathbf{y}_i, \boldsymbol{\phi})- \frac{\|\boldsymbol{\mu}_i\|^2}{2} - \frac{\|\boldsymbol{\beta}_0\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\beta}_j\|^2}{2\sigma_\beta^2}- \sum_{j=1}^m \frac{\|\boldsymbol{\lambda}_j\|^2}{2\sigma_\lambda^2}.
+\end{align}$$`
+   ]
+
+]]
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Implementation** <i class="fas  fa-code "></i>
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[automatic differentiation], implemented in `C++`
+
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+ &lt;img src="images/AutomaticDifferentiationNutshell.png", width="85%"&gt;
+]]
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Implementation** <i class="fas  fa-code "></i>
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> In the optimisation process, we utilise the `TMB` package, which allows us to perform .orange[automatic differentiation], implemented in `C++`. 
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Automatic differentiation allows us to only define the objective function, and .orange[*automatically*] calculates the gradient function for us. It does this by breaking up the function into basic functions and applying the chain rule.
+
+
+]]
+.column[.content.vmiddle.center[
+
+
+  &lt;img src="images/frodo.gif", width="70%"&gt;
+  
+  .pink[*Disclosure: unlike Mathematica it will not return a symbolic gradient formula for you.*]
+
+]]
+
+---
+class: bg-main2
+
+.center[.orange[# **The genDA algorithm** <i class="fas  fa-calculator "></i>]] 
+
+&lt;br&gt;
+
+## 1) .orange[Determine families of columns of data to be estimated, as well as separate out class variable (as a factor).]
+
+---
+class: bg-main2
+
+.center[.orange[# **The genDA algorithm** <i class="fas  fa-calculator "></i>]] 
+
+&lt;br&gt;
+
+## 1) Determine families of columns of data to be estimated, as well as separate out class variable (as a factor).
+
+## 2) .orange[Initialise parameters to be estimated. LV parameters can be estimated using a FA approach (Niku, 2019).]
+
+
+---
+
+class: bg-main2
+
+.center[.orange[# **The genDA algorithm** <i class="fas  fa-calculator "></i>]] 
+
+&lt;br&gt;
+
+## 1) Determine families of columns of data to be estimated, as well as separate out class variable (as a factor).
+
+## 2) Initialise parameters to be estimated. LV parameters can be estimated using a FA approach (Niku, 2019).
+
+## 3) .orange[Optimise derived approximate log lower bound by using TMB and nlminb, and report fitted values.]
+
+---
+
+class: bg-main2
+
+.center[.orange[# **The genDA algorithm** <i class="fas  fa-calculator "></i>]] 
+
+&lt;br&gt;
+
+## 1) Determine families of columns of data to be estimated, as well as separate out class variable (as a factor).
+
+## 2) Initialise parameters to be estimated. LV parameters can be estimated using a FA approach (Niku, 2019).
+
+## 3) Optimise derived approximate log lower bound by using TMB and nlminb, and report fitted values.
+
+## 4) .orange[(Optional) standard errors can also be calculated by looking at inverse Hessian matrix.]
+
+---
+
+class: split-70 hide-slide-number
+background-image: url("bkg/bg3.png")
+background-size: cover
+
+.column.slide-in-left[
+.sliderbox.vmiddle.shade_main.center[
+.font5[genDA in Action  <span>&lt;i class="fas  fa-exclamation faa-ring animated " style=" color:white;"&gt;&lt;/i&gt;</span> ]]]
+.column[
+]
+
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Urban Cover data**
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> The study area is an urban area in Deerfield Beach, FL, USA, with a 30cm resolution colour infrared aerial orthoimagery of the study area acquired.
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Contains 9 different types of landcover.
+
+&lt;br&gt; 
+
+### <i class="fas  fa-angle-right "></i> Data consists of .orange[n = 168] image segments to be classified with .orange[m = 147] features associated with each image segment such as Area, Brightness, etc measured at different resolutions.
+
+]]
+.column.bg-main1[.content.vmiddle.center[
+
+&lt;img src="images/urban.jpg", width="80%"&gt;
+
+##### .orange[Source: Johnson, 2013].
+
+]]
+
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+
+&lt;br&gt;
+
+# **Urban Cover data**
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+# Data is .orange[*highly correlated*] with a noticible difference in correlation structure between classes.
+
+
+
+]]
+.column.bg-main1[.content.vmiddle.center[
+
+ &lt;img src="images/covariance.png", width="75%"&gt;
+
+
+]]
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Urban Cover data**
+
+&lt;br&gt;
+
+
+
+## EDA shows that data is .orange[not normal], with a mix of positive skew, Gaussian, and count data.
+
+
+&lt;br&gt;
+&lt;br&gt;
+
+# .orange[**Let's give genDA a go on this data!**]
+
+
+
+
+]]
+.column.bg-main1[.content.vmiddle[
+
+
+```r
+# A tibble: 168 x 148
+   class    BrdIndx  Area Round Bright Compact ShpIndx 
+   &lt;fct&gt;      &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  
+ 1 car         1.27    91  0.97   231.    1.39    1.47
+ 2 concrete    2.36   241  1.56   216.    2.46    2.51    
+ 3 concrete    2.12   266  1.47   232.    2.07    2.21
+ 4 concrete    2.42   399  1.28   230.    2.49    2.73 
+ 5 concrete    2.15   944  1.73   193.    2.28    4.1 
+ 6 tree        3.11   169  1.47   172.    2.49    3.35  
+ 7 car         1.2     44  0.79   209.    1.14    1.36 
+ 8 car         1       88  0.22   235.    1.11    1.12 
+ 9 building    1.59  1737  0.67   220.    1.3     1.64 
+10 tree        2.37   153  1.3    120.    2.85    2.59
+```
+
+
+
+
+
+
+]]
+
+---
+
+class: split-two white
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+# **Urban Cover data** <i class="fab  fa-r-project "></i>
+
+
+
+&lt;br&gt;
+
+
+```r
+*fit &lt;-  genDA(y = data, class = class,
+*             num.lv = 2, common.covariance = FALSE)
+
+prediction &lt;- predict(fit, newdata = newdata) 
+```
+
+]]
+.column.bg-main1[.content.vmiddle.center[
+
+
+### .black[The genDA algorithm can be fit with the `genDA` function, and the generic S3 `predict` method can be used to predict new data points given a trained genDA model.]
+
+&lt;br&gt;
+
+#### .orange[(*Note: I expect the syntax will change slightly as I further improve the R package*)]
+
+
+
+]]
+
+
+
+
+---
+
+class: middle center bg-main1
+
+# .black[100 Trial, 5 Fold CV]
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" width="864" /&gt;
+
+
+---
+class: split-two white
+
+
+
+]]
+
+.column.bg-main2[.content.center[
+
+&lt;br&gt;
+
+# genDA
+
+&lt;br&gt;
+
+&lt;img src="images/genDA_logo.png", width="50%"&gt;
+
+## .white[<span>&lt;i class="fab  fa-github faa-float animated "&gt;&lt;/i&gt;</span>]
+
+### [sarahromanes/genDA](https://github.com/sarahromanes/genDA)
+
+
+]]
+
+.column.bg-main8[.content.center[
+
+&lt;br&gt;
+
+# **Acknowledgements**
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Slides are made in *rmarkdown* using *xaringan* (Yihui Xie) and *ninja* theme (Emi Tanaka).
+
+&lt;br&gt;
+
+### <i class="fas  fa-angle-right "></i> Thank you to my supervisor A/Prof John Ormerod for collaborating with me on this project.
+
+
+
+
+]]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'assets/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
