@@ -1,5 +1,5 @@
 ---
-title: "genDA and multiDA"
+title: "genDA"
 subtitle: "Using Variational Approximations to efficiently build a generalised discriminant analysis algorithm."
 author: "Sarah Romanes"
 date: "YSC"
@@ -1366,14 +1366,43 @@ prediction <- predict(fit, newdata = newdata)
 
 ]]
 
+---
+
+class: center bg-main1
 
 
+# .black[Latent variables provide low rank approximation to data]
 
+<br>
+
+<img src="images/one_lv.png", width="35%">
+
+---
+
+
+class: center bg-main1
+
+
+# .black[Latent variables provide low rank approximation to data]
+
+<br>
+
+<img src="images/two_lv.png", width="80%">
+
+---
+
+class: center bg-main1
+
+
+# .black[Latent variables provide low rank approximation to data]
+
+<br>
+<img src="images/four_lv.png", width="80%">
 ---
 
 class: middle center bg-main1
 
-# .black[100 Trial, 5 Fold CV]
+# .black[**100 Trial, 5 Fold CV**]
 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE, fig.retina=4, fig.width=12,dev='svg',dev.args   = list(bg = 'transparent') }
 load("data/urban.RData")
